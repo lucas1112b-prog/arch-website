@@ -1,0 +1,159 @@
+.aboutSection {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  padding: 120px 40px;
+  position: relative;
+  z-index: 2;
+  height: fit-content;
+  padding-bottom: 120px;
+}
+
+
+
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+  height: 100%;
+  align-items: flex-start;
+  /* Crucial for flex sticky children */
+}
+
+.leftContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Image wrapper with chamfered corners */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  aspect-ratio: 1 / 1;
+  background-color: #1a1a1a;
+  clip-path: polygon(0 0, 80% 0, 100% 20%, 100% 100%, 20% 100%, 0 80%);
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.playBtn {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-black);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  clip-path: polygon(0 0, 75% 0, 100% 25%, 100% 100%, 25% 100%, 0 75%);
+  transition: transform 0.3s ease;
+}
+
+.playBtn:hover {
+  transform: scale(1.05);
+}
+
+.playIcon {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-left: 12px solid var(--color-white);
+  border-bottom: 8px solid transparent;
+  margin-left: 4px;
+}
+
+/* Right Content */
+.rightContent {
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.description {
+  font-size: 1.3rem;
+  line-height: 1.4;
+  font-weight: 500;
+  opacity: 1;
+  color: #efefef;
+}
+
+.linkBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 0px;
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.link {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--color-white);
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+.link:hover {
+  opacity: 0.7;
+}
+
+.bgIcon {
+  position: absolute;
+  top: 0;
+  right: -360px;
+  width: 800px;
+  height: 800px;
+  z-index: 2;
+  opacity: .6;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .aboutSection {
+    padding: 80px 20px;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .imageWrapper {
+    aspect-ratio: 1 / 1;
+    max-width: 100%;
+  }
+
+  .rightContent {
+    width: 100%;
+  }
+
+  .description {
+    font-size: 1.1rem;
+  }
+
+  .bgIcon {
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    top: 20%;
+  }
+}

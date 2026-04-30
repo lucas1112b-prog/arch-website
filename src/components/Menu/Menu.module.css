@@ -1,0 +1,235 @@
+.menuContainer {
+  position: fixed;
+  top: 32px;
+  right: 32px;
+  z-index: 9999;
+}
+
+.rightControls {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.menuBtn,
+.langBtn {
+  border: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: opacity 0.3s ease;
+}
+
+.menuBtn {
+  background-color: #29292981;
+  color: var(--color-white);
+  backdrop-filter: blur(10px);
+  clip-path: polygon(5.31% 0%,
+      94.69% 0%,
+      100% 13.15%,
+      100% 86.85%,
+      94.69% 100%,
+      5.31% 100%,
+      0% 86.85%,
+      0% 13.15%);
+  padding: 10px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.menuBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/gifs/noise.gif');
+  background-size: 100px;
+  background-repeat: repeat;
+  opacity: 0.056;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+.langBtn {
+  background-color: transparent;
+  color: var(--color-black);
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.langSelector {
+  background-color: #f7ce02;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 35px;
+  width: 50px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  clip-path: polygon(80.22% 0%,
+      100% 25.85%,
+      100% 100%,
+      19.15% 100%,
+      0% 74.15%,
+      0% 0%);
+}
+
+.langSelector:hover {
+  height: 110px;
+  clip-path: none;
+}
+
+.langOptions {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
+.langOption {
+  background: transparent;
+  border: none;
+  color: var(--color-black);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: opacity 0.2s ease;
+}
+
+.langOption:hover {
+  opacity: 0.6;
+}
+
+
+.menuBtn:hover,
+.langBtn:hover {
+  opacity: 0.8;
+}
+
+.marqueeContainer {
+  background-color: #000000;
+  width: 100%;
+  overflow: hidden;
+  padding: 8px 0;
+  margin-top: 4px;
+}
+
+.marqueeContent {
+  display: flex;
+  white-space: nowrap;
+  width: max-content;
+  animation: marquee 15s linear infinite;
+}
+
+.marqueeItem {
+  color: var(--color-white);
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  padding: 0 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.marqueeItem:hover {
+  color: #b9b9b9;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: 60px;
+  /* Below the buttons */
+  right: 0;
+  width: 300px;
+  background-color: rgb(22, 22, 22);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.052);
+  padding: 4px;
+  padding-bottom: 0;
+  /* GSAP will animate opacity, blur, and visibility */
+  visibility: hidden;
+  opacity: 0;
+}
+
+.dropdownList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdownItem {
+  display: block;
+  text-decoration: none;
+  font-size: 1rem;
+
+  color: #fffffff1;
+  cursor: pointer;
+  font-weight: 600;
+  text-align: left;
+  background-color: #ffffff0e;
+  padding: 14px 20px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.dropdownItem::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 3px;
+  height: 16px;
+  background-color: var(--color-yellow);
+  transition: opacity 0.3s ease;
+  transform: translateY(-50%);
+  opacity: 0;
+}
+
+.dropdownItem:hover::before {
+  opacity: 1;
+}
+
+.dropdownItem:hover {
+  background-color: #ffffff2e;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 9998;
+  /* Just below menuContainer */
+  pointer-events: auto;
+  visibility: hidden;
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .menuContainer {
+    top: 20px;
+    right: 20px;
+  }
+}

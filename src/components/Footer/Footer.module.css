@@ -1,0 +1,147 @@
+.footer {
+  width: 100%;
+  height: 60vh;
+  background-color: #000;
+  display: flex;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+  box-shadow: 0 -20px 40px #0000000c;
+}
+
+.leftSide {
+  flex: 2;
+  padding: 80px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.cornerIcon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70px;
+  height: 70px;
+  z-index: 2;
+}
+
+.navBox {
+  margin-top: 120px;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: fit-content;
+}
+
+.navLink {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.navLink:hover {
+  opacity: 0.7;
+}
+
+.separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.8rem;
+}
+
+.bottomContent {
+  margin-bottom: 20px;
+}
+
+.mainTitle {
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.mainTitle:hover .bigArrow {
+  transform: translateX(4px);
+}
+
+.bigArrow {
+  width: 100px;
+  height: auto;
+  stroke: #fff;
+  stroke-width: 2;
+  transform: translateX(0px);
+  transition: transform 0.3s ease;
+}
+
+.rightSide {
+  flex: 1;
+  height: 100%;
+}
+
+.footerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    height: auto;
+    padding: 0;
+  }
+
+  .leftSide {
+    padding: 60px 20px;
+  }
+
+  .navBox {
+    margin-top: 60px;
+  }
+
+  .navLinks {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 15px;
+  }
+
+  .navLink {
+    font-size: 0.8rem;
+  }
+
+  .mainTitle {
+    font-size: 2.5rem;
+    gap: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bigArrow {
+    width: 60px;
+  }
+
+  .rightSide {
+    height: 300px;
+    width: 100%;
+  }
+
+  .cornerIcon {
+    width: 50px;
+    height: 50px;
+  }
+}
