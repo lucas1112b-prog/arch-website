@@ -21,7 +21,7 @@ export default function Manifesto() {
     let hasAnimated = false;
 
     document.fonts.ready.then(() => {
-      split = new SplitType(textRef.current!, { types: 'lines, words' });
+      split = new SplitType(textRef.current!, { types: 'lines,words' });
       gsap.set(split.lines, { overflow: 'hidden' });
       gsap.set(split.words, { yPercent: 110 });
 
