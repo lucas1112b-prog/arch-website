@@ -25,7 +25,7 @@ export default function About() {
         trigger: rightContentRef.current,
         start: 'top 30%',
         endTrigger: containerRef.current,
-        end: 'bottom bottom',
+        end: () => `bottom ${window.innerHeight * 0.3 + rightContentRef.current!.offsetHeight}px`,
         pin: true,
         pinSpacing: false,
       });
