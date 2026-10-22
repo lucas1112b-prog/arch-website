@@ -153,7 +153,6 @@
   font-size: clamp(3.2rem, 7.5vw, 7.5rem);
   font-weight: 500;
   line-height: 0.92;
-  letter-spacing: -0.06em;
 }
 
 .cta {
@@ -163,6 +162,7 @@
   padding: 0.8em 1.2em;
   border: 1px solid #ffffff57;
   background-color: #ffffff14;
+  backdrop-filter: blur(30px);
   color: var(--color-white);
   font-family: var(--font-familjen-grotesk);
   font-size: 0.78rem;
@@ -178,7 +178,7 @@
 
 .cta:hover,
 .cta:focus-visible {
-  background-color: #ffffff24;
+  background-color: var(--color-yellow);
 }
 
 .ctaLabelMask {

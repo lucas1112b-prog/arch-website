@@ -57,8 +57,8 @@ export default function Manifesto() {
           <div className={styles.headlineWrapper}>
             <p ref={textRef} className={styles.text}>
               Desde <span className={styles.introHighlight}>2024</span>, moldamos visões arrojadas em arquiteturas de alta{' '}
-              <span className={styles.wordHighlight}>performance</span>. Somos um estúdio guiado pelo diálogo entre a luz e a matéria, pela{' '}
-              <span className={styles.wordHighlight}>precisão</span> técnica e pela busca constante por espaços vivos, atemporais e capazes de{' '}
+              <span className={styles.wordHighlight}>performance</span>. Criamos espaços vivos e{' '}
+              <span className={styles.wordHighlight}>precisos</span>, capazes de{' '}
               <span className={styles.wordHighlight}>transformar</span> realidades.
             </p>
           </div>
