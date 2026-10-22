@@ -84,86 +84,65 @@
   color: rgba(255, 255, 255, 0.95);
 }
 
-/* Right Column: Featured Project Card */
+/* Right Column: Bracket Tag + Description + Action Buttons */
 .rightCol {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 480px;
-  justify-self: end;
-  margin-top: clamp(36px, 5.5vh, 76px);
+  align-items: flex-start;
+  max-width: 540px;
+  margin-top: clamp(60px, 9vh, 120px);
 }
 
-.projectCard {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
+.bracketTag {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  margin-bottom: clamp(20px, 3vh, 32px);
 }
 
-.projectImageWrapper {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 2.2 / 1;
-  overflow: hidden;
-  background-color: #141414;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+.description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-familjen-grotesk);
+  font-size: clamp(1.1rem, 1.45vw, 1.35rem);
+  font-weight: 450;
+  line-height: 1.42;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(32px, 4.5vh, 48px);
 }
 
-.projectImage {
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
-  filter: saturate(0.95);
-}
-
-.projectCard:hover .projectImage {
-  transform: scale(1.05);
-  filter: saturate(1.1);
-}
-
-.projectInfoRow {
+.actionsRow {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 14px;
-  width: 100%;
+  gap: 14px;
+  flex-wrap: wrap;
 }
 
-.projectName {
-  margin: 0;
-  font-family: var(--font-neue-haas);
-  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
-  font-weight: 550;
-  color: var(--color-white);
-  letter-spacing: -0.015em;
-  transition: color 0.25s ease;
-}
-
-
-.viewProjectBtn {
+.actionBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.75em;
-  padding: 0.75em 1.15em;
+  padding: 0.8em 1.2em;
   border: 1px solid #ffffff57;
   background-color: #ffffff14;
   backdrop-filter: blur(30px);
   color: var(--color-white);
   font-family: var(--font-familjen-grotesk);
-  font-size: 0.76rem;
+  font-size: 0.78rem;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.01em;
+  text-decoration: none;
   text-transform: uppercase;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  flex-shrink: 0;
+  cursor: pointer;
 }
 
-.projectCard:hover .viewProjectBtn,
-.viewProjectBtn:hover {
+.actionBtn:hover,
+.actionBtn:focus-visible {
   background-color: var(--color-yellow);
   color: #000000;
   border-color: var(--color-yellow);
@@ -191,8 +170,8 @@
   white-space: nowrap;
 }
 
-.projectCard:hover .ctaLabelTrack,
-.viewProjectBtn:hover .ctaLabelTrack {
+.actionBtn:hover .ctaLabelTrack,
+.actionBtn:focus-visible .ctaLabelTrack {
   animation: footerCtaSplitReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -227,8 +206,8 @@
   will-change: transform;
 }
 
-.projectCard:hover .ctaArrowIcon,
-.viewProjectBtn:hover .ctaArrowIcon {
+.actionBtn:hover .ctaArrowIcon,
+.actionBtn:focus-visible .ctaArrowIcon {
   transform: translateX(0.18em) rotate(-45deg);
 }
 
@@ -367,9 +346,15 @@
     font-size: clamp(2rem, 8vw, 3.2rem);
   }
 
-  .projectInfoRow {
-    flex-wrap: wrap;
+  .actionsRow {
+    flex-direction: column;
+    width: 100%;
     gap: 12px;
+  }
+
+  .actionBtn {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .bottomBar {

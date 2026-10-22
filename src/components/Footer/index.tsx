@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { TransitionLink } from '../PageTransition';
 import teamImg from '../../assets/images/team (2).png';
-import projectImg from '../../assets/images/projects-section/reserva-da-pedra.png';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -29,7 +29,7 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      {/* Main Grid: Left Massive Title & Phone Badge | Right Featured Project Card */}
+      {/* Main Grid: Left Massive Title & Phone Badge | Right Eyebrow, Text & CTA Buttons */}
       <div className={styles.mainGrid}>
         {/* Left Column */}
         <div className={styles.leftCol}>
@@ -52,48 +52,72 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* Right Column: Featured Project */}
+        {/* Right Column */}
         <div className={styles.rightCol}>
-          <a href="#projects" className={styles.projectCard}>
-            <div className={styles.projectImageWrapper}>
-              <Image
-                src={projectImg}
-                alt="Club Reserva da Pedra"
-                fill
-                sizes="(max-width: 768px) 100vw, 42vw"
-                className={styles.projectImage}
-              />
-            </div>
+          <div className={styles.bracketTag}>
+            <span>[ GET IN TOUCH ]</span>
+          </div>
 
-            <div className={styles.projectInfoRow}>
-              <h3 className={styles.projectName}>Club Reserva da Pedra</h3>
+          <p className={styles.description}>
+            Feel free to reach out and discuss your project. We'll make it sharper.
+          </p>
 
-              <div className={styles.viewProjectBtn}>
-                <span className={styles.ctaLabelMask}>
-                  <span className={styles.ctaLabelTrack}>
-                    <span className={styles.ctaLabel}>VER PROJETO</span>
-                    <span className={styles.ctaLabel} aria-hidden="true">VER PROJETO</span>
-                  </span>
+          <div className={styles.actionsRow}>
+            <TransitionLink href="/contato" className={styles.actionBtn}>
+              <span className={styles.ctaLabelMask}>
+                <span className={styles.ctaLabelTrack}>
+                  <span className={styles.ctaLabel}>START A PROJECT</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">START A PROJECT</span>
                 </span>
-                <span className={styles.ctaArrowBox} aria-hidden="true">
-                  <svg
-                    className={styles.ctaArrowIcon}
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5 12H19M19 12L13 6M19 12L13 18"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+              </span>
+              <span className={styles.ctaArrowBox} aria-hidden="true">
+                <svg
+                  className={styles.ctaArrowIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12H19M19 12L13 6M19 12L13 18"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </TransitionLink>
+
+            <a
+              href="https://wa.me/5548991247700?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto."
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.actionBtn}
+            >
+              <span className={styles.ctaLabelMask}>
+                <span className={styles.ctaLabelTrack}>
+                  <span className={styles.ctaLabel}>SCHEDULE A CALL</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">SCHEDULE A CALL</span>
                 </span>
-              </div>
-            </div>
-          </a>
+              </span>
+              <span className={styles.ctaArrowBox} aria-hidden="true">
+                <svg
+                  className={styles.ctaArrowIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12H19M19 12L13 6M19 12L13 18"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </a>
+          </div>
         </div>
       </div>
 
