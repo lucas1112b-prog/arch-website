@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  padding: clamp(90px, 12vh, 150px) clamp(24px, 4vw, 64px) clamp(60px, 8vh, 100px);
+  padding: clamp(80px, 12vh, 140px) clamp(24px, 4.5vw, 72px) clamp(80px, 10vh, 120px);
   position: relative;
   z-index: 2;
   box-sizing: border-box;
@@ -14,46 +14,46 @@
 
 .container {
   width: 100%;
-  max-width: 1560px;
-  min-height: calc(100vh - clamp(150px, 20vh, 250px));
+  max-width: 1600px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: clamp(80px, 10vw, 140px) minmax(0, 1fr);
-  column-gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: clamp(90px, 11vw, 150px) minmax(0, 1fr);
+  column-gap: clamp(32px, 4vw, 70px);
 }
 
 .eyebrowCol {
-  padding-top: 0.35em;
+  padding-top: 0.45em;
 }
 
 .eyebrow {
   display: block;
   color: rgba(255, 255, 255, 0.78);
   font-family: var(--font-familjen-grotesk);
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .mainContentCol {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 .headlineWrapper {
-  max-width: 1480px;
+  max-width: 1420px;
 }
 
 .text {
   margin: 0;
-  color: rgba(255, 255, 255, 0.91);
+  color: rgba(255, 255, 255, 0.92);
   font-family: var(--font-familjen-grotesk);
-  font-size: clamp(2.3rem, 3.7vw, 4.25rem);
+  font-size: clamp(2.3rem, 4.2vw, 4.75rem);
   font-weight: 550;
-  line-height: 1;
+  line-height: 1.08;
+  letter-spacing: -0.028em;
 }
 
 
@@ -78,7 +78,7 @@
 .dividerRow {
   position: relative;
   width: 100%;
-  margin: clamp(48px, 6.5vh, 76px) 0 clamp(40px, 5.5vh, 64px);
+  margin: clamp(70px, 9.5vh, 115px) 0 clamp(40px, 5.5vh, 56px);
 }
 
 .dividerLine {
@@ -92,7 +92,7 @@
   position: absolute;
   inset: 0;
   display: grid;
-  grid-template-columns: 1.55fr 1fr;
+  grid-template-columns: 1.8fr 1fr;
   column-gap: clamp(32px, 4vw, 64px);
   pointer-events: none;
 }
@@ -102,19 +102,18 @@
   position: relative;
   left: 0;
   top: 50%;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -50%);
   color: rgba(255, 255, 255, 0.45);
   font-family: var(--font-familjen-grotesk);
-  font-size: 1rem;
+  font-size: 0.95rem;
   line-height: 1;
 }
 
 .bottomRow {
   display: grid;
-  grid-template-columns: 1.55fr 1fr;
+  grid-template-columns: 1.8fr 1fr;
   column-gap: clamp(32px, 4vw, 64px);
   align-items: start;
-  margin-top: auto;
 }
 
 .bottomLeftCol {
@@ -122,36 +121,36 @@
 }
 
 .supportingText {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.72);
   font-family: var(--font-familjen-grotesk);
-  font-size: 0.76rem;
+  font-size: clamp(0.75rem, 0.9vw, 0.84rem);
   font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
 .bottomRightCol {
   width: 100%;
-  max-width: 560px;
+  max-width: 520px;
   justify-self: end;
-  align-self: end;
+  align-self: start;
 }
 
 .missionText {
-  max-width: 540px;
+  max-width: 480px;
   color: rgba(255, 255, 255, 0.78);
   font-family: var(--font-familjen-grotesk);
-  font-size: clamp(1rem, 1.35vw, 1.25rem);
-  font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+  font-size: clamp(0.95rem, 1.2vw, 1.15rem);
+  font-weight: 450;
+  line-height: 1.42;
+  letter-spacing: -0.015em;
 }
 
 .cta {
   display: inline-flex;
   align-items: center;
   gap: 0.75em;
-  margin-top: clamp(38px, 5vh, 64px);
+  margin-top: clamp(32px, 4vh, 44px);
   padding: 0.8em 1em;
   border: 1px solid #ffffff57;
   background-color: #ffffff14;
