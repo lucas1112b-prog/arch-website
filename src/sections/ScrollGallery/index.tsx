@@ -6,6 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './ScrollGallery.module.css';
 import { TransitionLink } from '../../components/PageTransition';
+import TextReveal from '../../components/TextReveal';
 
 import imageOne from '../../assets/images/images-big-hero/image-hero-04-big.png';
 import imageTwo from '../../assets/images/images-big-hero/image-hero-02-big.png';
@@ -187,11 +188,13 @@ export default function ScrollGallery() {
 
         {/* Center Typography & Badge */}
         <div className={styles.centerContent}>
-          <span className={styles.eyebrow}>PRÓXIMO CAPÍTULO</span>
+          <TextReveal as="span" className={styles.eyebrow} wordsOnly>
+            PRÓXIMO CAPÍTULO
+          </TextReveal>
           <div className={styles.titleWrapper}>
-            <h2 className={styles.title}>
+            <TextReveal as="h2" className={styles.title} wordsOnly>
               Vamos fazer<br />acontecer.
-            </h2>
+            </TextReveal>
             <TransitionLink href="/contato" className={styles.cta}>
               <span className={styles.ctaLabelMask}>
                 <span className={styles.ctaLabelTrack}>

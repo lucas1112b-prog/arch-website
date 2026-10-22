@@ -36,7 +36,7 @@
   color: var(--color-white);
   font-family: var(--font-neue-haas);
   font-size: clamp(2.4rem, 4.8vw, 4.8rem);
-  font-weight: 600;
+  font-weight: 550;
   line-height: 0.94;
   letter-spacing: -0.025em;
   text-transform: uppercase;
