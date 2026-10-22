@@ -102,7 +102,7 @@
   position: relative;
   left: 0;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -100%);
   color: rgba(255, 255, 255, 0.45);
   font-family: var(--font-familjen-grotesk);
   font-size: 0.95rem;
