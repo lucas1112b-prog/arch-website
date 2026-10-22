@@ -90,6 +90,9 @@ export default function ScrollGallery() {
   return (
     <section ref={sectionRef} className={styles.scrollGallerySection}>
       <div ref={containerRef} className={styles.container}>
+        {/* Soft top gradient fade */}
+        <div className={styles.topFade} aria-hidden="true" />
+
         {/* Full-height vertical dividing lines */}
         <div className={styles.gridLines} aria-hidden="true">
           <div className={styles.gridCol} />
