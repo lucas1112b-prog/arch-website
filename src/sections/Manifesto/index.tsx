@@ -2,68 +2,115 @@
 
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { CustomEase } from 'gsap/CustomEase';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
+import { TransitionLink } from '../../components/PageTransition';
+import TextReveal from '../../components/TextReveal';
 import styles from './Manifesto.module.css';
 
-gsap.registerPlugin(CustomEase);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Manifesto() {
-  const sectionRef = useRef<HTMLElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    CustomEase.create("osmo-ease", "0.625, 0.05, 0, 1");
+    const element = textRef.current;
+    if (!element) return;
 
-    if (!textRef.current) return;
+    const split = new SplitType(element, { types: 'words,chars' });
+    const chars = (split.chars ?? []).filter((char) => !char.closest(`.${styles.introHighlight}`));
 
-    let split: SplitType | null = null;
-    let hasAnimated = false;
-
-    document.fonts.ready.then(() => {
-      split = new SplitType(textRef.current!, { types: 'lines,words' });
-      gsap.set(split.lines, { overflow: 'hidden' });
-      gsap.set(split.words, { yPercent: 110 });
-
-      // Trigger animation if already in view (in case observer fired early)
-      if (hasAnimated && split) {
-        gsap.to(split.words, { yPercent: 0, duration: 0.8, stagger: 0.02, ease: "osmo-ease" });
+    const tween = gsap.fromTo(
+      chars,
+      { color: 'rgba(255, 255, 255, 0.18)' },
+      {
+        color: 'rgba(255, 255, 255, 0.82)',
+        stagger: 0.035,
+        scrollTrigger: {
+          trigger: element,
+          start: 'top bottom',
+          end: 'bottom center',
+          scrub: 1,
+        },
       }
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && !hasAnimated) {
-        hasAnimated = true;
-        if (split) {
-          gsap.to(split.words, {
-            yPercent: 0,
-            duration: 0.8,
-            stagger: 0.02,
-            ease: "osmo-ease"
-          });
-        }
-      }
-    }, { threshold: 0.4 });
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    );
 
     return () => {
-      observer.disconnect();
-      if (split) split.revert();
+      tween.scrollTrigger?.kill();
+      tween.kill();
+      split.revert();
     };
   }, []);
 
   return (
-    <section className={styles.manifestoSection} ref={sectionRef}>
-      <div className={styles.label}>
-        Manifesto
-      </div>
-      <div className={styles.textContainer}>
-        <p className={styles.text} ref={textRef}>
-          Desde 2014, transformamos visões em espaços de alta performance e eficiência. Somos um time experiente e premiado de arquitetos, unidos pela precisão técnica do BIM e pela busca pelo novo. Sem um estilo rígido, entregamos soluções sob medida para cada escala. Sob a liderança de nossos cinco sócios, a ARK7 desafia o comum para projetar ambientes que unem inovação, propósito e rigor técnico.
-        </p>
+    <section className={styles.manifestoSection}>
+      <div className={styles.container}>
+        {/* Left column: Eyebrow label */}
+        <div className={styles.eyebrowCol}>
+          <TextReveal as="span" className={styles.eyebrow}>
+            SOBRE
+          </TextReveal>
+        </div>
+
+        {/* Right column: Main content (headline, divider, bottom row) */}
+        <div className={styles.mainContentCol}>
+          <div className={styles.headlineWrapper}>
+            <p ref={textRef} className={styles.text}>
+              Desde <span className={styles.introHighlight}>2024</span>, moldamos visões arrojadas em arquiteturas de alta{' '}
+              <span className={styles.wordHighlight}>performance</span>. Somos um estúdio guiado pelo diálogo entre a luz e a matéria, pela{' '}
+              <span className={styles.wordHighlight}>precisão</span> técnica e pela busca constante por espaços vivos, atemporais e capazes de{' '}
+              <span className={styles.wordHighlight}>transformar</span> realidades.
+            </p>
+          </div>
+
+          <div className={styles.dividerRow}>
+            <div className={styles.dividerLine}>
+              <div className={styles.crosshairTrack}>
+                <span className={styles.crosshair} aria-hidden="true">+</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.bottomRow}>
+            <div className={styles.bottomLeftCol}>
+              <p className={styles.supportingText}>
+                PROJETAMOS PARA A LONGEVIDADE<br />
+                CLAREZA PRIMEIRO, EXECUÇÃO SEMPRE,<br />
+                ESCALÁVEL.
+              </p>
+            </div>
+
+            <div className={styles.bottomRightCol}>
+              <p className={styles.missionText}>
+                Entre a matéria e o tempo, criamos espaços que permanecem — vivos, precisos e feitos para durar.
+              </p>
+              <TransitionLink href="/contato" className={styles.cta}>
+                <span className={styles.ctaLabelMask}>
+                  <span className={styles.ctaLabelTrack}>
+                    <span className={styles.ctaLabel}>Fale com a ARK7</span>
+                    <span className={styles.ctaLabel} aria-hidden="true">Fale com a ARK7</span>
+                  </span>
+                </span>
+                <span className={styles.ctaArrowBox} aria-hidden="true">
+                  <svg
+                    className={styles.ctaArrowIcon}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 12H19M19 12L13 6M19 12L13 18"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
+              </TransitionLink>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

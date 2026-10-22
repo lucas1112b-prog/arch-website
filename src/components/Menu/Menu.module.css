@@ -1,13 +1,107 @@
+.socialMarquee {
+  position: fixed;
+  top: 28px;
+  left: 28px;
+  z-index: 10000;
+  width: 230px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--color-yellow);
+  color: var(--color-black);
+  clip-path: polygon(8px 0, 100% 0, 100% 100%, 0 100%, 0 8px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.45s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.45s;
+  pointer-events: none;
+}
+
+.socialMarquee::before,
+.socialMarquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 26px;
+  pointer-events: none;
+}
+
+.socialMarquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--color-yellow) 0%, rgba(230, 191, 0, 0) 100%);
+}
+
+.socialMarquee::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--color-yellow) 0%, rgba(230, 191, 0, 0) 100%);
+}
+
+.socialMarqueeVisible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.socialMarqueeTrack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: socialMarqueeScroll 18s linear infinite;
+  will-change: transform;
+}
+
+.socialMarqueeContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 8px;
+  white-space: nowrap;
+  font-size: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-familjen-grotesk);
+}
+
+.socialMarqueeLink {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.socialMarqueeLink:hover,
+.socialMarqueeLink:focus-visible {
+  opacity: 0.55;
+}
+
+.socialMarqueeDot {
+  opacity: 0.7;
+}
+
+@keyframes socialMarqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
 .menuContainer {
   position: fixed;
-  top: 32px;
-  right: 32px;
+  top: 28px;
+  right: 28px;
   z-index: 9999;
 }
 
 .rightControls {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: flex-start;
   justify-content: flex-end;
 }
@@ -15,17 +109,18 @@
 .menuBtn,
 .langBtn {
   border: none;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
   font-weight: 600;
   cursor: pointer;
   border-radius: 2px;
   transition: opacity 0.3s ease;
+  font-family: var(--font-familjen-grotesk);
 }
 
 .menuBtn {
-  background-color: #29292981;
-  color: var(--color-white);
-  backdrop-filter: blur(10px);
+  background-color: #ffffffff;
+  color: var(--color-black);
+  letter-spacing: 0.08em;
   clip-path: polygon(5.31% 0%,
       94.69% 0%,
       100% 13.15%,
@@ -34,31 +129,17 @@
       5.31% 100%,
       0% 86.85%,
       0% 13.15%);
-  padding: 10px 24px;
+  padding: 8px 18px;
   position: relative;
   overflow: hidden;
 }
 
-.menuBtn::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../../assets/gifs/noise.gif');
-  background-size: 100px;
-  background-repeat: repeat;
-  opacity: 0.056;
-  pointer-events: none;
-  z-index: 1;
-}
 
 
 .langBtn {
   background-color: transparent;
   color: var(--color-black);
-  padding: 10px 15px;
+  padding: 8px 11px;
   width: 100%;
 }
 
@@ -67,8 +148,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 35px;
-  width: 50px;
+  height: 31px;
+  width: 42px;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   clip-path: polygon(80.22% 0%,
@@ -80,7 +161,7 @@
 }
 
 .langSelector:hover {
-  height: 110px;
+  height: 90px;
   clip-path: none;
 }
 
@@ -94,11 +175,12 @@
   background: transparent;
   border: none;
   color: var(--color-black);
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 8px 16px;
+  padding: 6px 12px;
   cursor: pointer;
   text-align: center;
+  font-family: var(--font-familjen-grotesk);
   transition: opacity 0.2s ease;
 }
 
@@ -135,6 +217,7 @@
   padding: 0 15px;
   text-decoration: none;
   cursor: pointer;
+  font-family: var(--font-familjen-grotesk);
 }
 
 .marqueeItem:hover {
@@ -189,6 +272,7 @@
   background-color: #ffffff0e;
   padding: 14px 20px;
   text-transform: uppercase;
+  font-family: var(--font-familjen-grotesk);
   position: relative;
 }
 
@@ -228,6 +312,13 @@
 }
 
 @media (max-width: 768px) {
+
+  .socialMarquee {
+    top: 20px;
+    left: 20px;
+    width: 190px;
+    height: 28px;
+  }
   .menuContainer {
     top: 20px;
     right: 20px;

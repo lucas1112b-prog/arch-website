@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './Team.module.css';
 import teamImg from '../../assets/images/team (2).png';
 import arrowIcon from '../../assets/icons/arrow-team.svg';
+import TextReveal from '../../components/TextReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,7 +15,7 @@ export default function Team() {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    let mm = gsap.matchMedia();
+    const mm = gsap.matchMedia();
 
     // Mobile logic
     mm.add("(max-width: 768px)", () => {
@@ -66,10 +67,10 @@ export default function Team() {
   return (
     <section className={styles.teamSection} ref={sectionRef}>
       <div className={styles.topRow}>
-        <p className={styles.description}>
+        <TextReveal as="p" className={styles.description}>
           Rejeitamos o óbvio. Nossa essência está na colaboração e na busca pela máxima eficiência. Cultivamos um ambiente onde a precisão técnica e a liberdade criativa convergem para superar desafios complexos com inteligência.
-        </p>
-        <h2 className={styles.title}>NOSSA CULTURA.</h2>
+        </TextReveal>
+        <TextReveal as="h2" className={styles.title}>NOSSA CULTURA.</TextReveal>
       </div>
 
       <div className={styles.imageContainer}>

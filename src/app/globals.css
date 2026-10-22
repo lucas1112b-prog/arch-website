@@ -8,15 +8,9 @@
   --background: var(--color-white);
   --foreground: var(--color-black);
 
-  --font-zalando: 'Zalando Sans', sans-serif;
+  --font-neue-haas: "neue-haas-grotesk-display", "Neue Haas Grotesk Display", sans-serif;
+  --font-familjen-grotesk: "familjen-grotesk", "Familjen Grotesk", sans-serif;
 }
-
-/* @font-face {
-  font-family: 'Zalando Sans';
-  src: url('/fonts/ZalandoSans-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-} */
 
 * {
   box-sizing: border-box;
@@ -39,9 +33,27 @@ body {
   /* Makes scrollbar float on top of content */
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-zalando);
+  font-family: var(--font-neue-haas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.siteNoise {
+  position: fixed;
+  inset: 0;
+  z-index: 999998;
+  pointer-events: none;
+  background-image: url('../assets/gifs/noise.gif');
+  background-size: 100px;
+  background-repeat: repeat;
+  opacity: 0.05;
 }
 
 /* Lenis Recommended CSS */

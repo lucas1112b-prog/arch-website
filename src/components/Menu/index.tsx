@@ -8,6 +8,7 @@ import { TransitionLink } from '../PageTransition';
 
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -16,6 +17,16 @@ export default function Menu() {
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 8);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+useEffect(() => {
     // Initial setup
     gsap.set(dropdownRef.current, { autoAlpha: 0, filter: 'blur(8px)' });
     gsap.set(overlayRef.current, { autoAlpha: 0 });
@@ -60,6 +71,26 @@ export default function Menu() {
         ref={overlayRef} 
         onClick={() => setIsOpen(false)} 
       />
+      <div className={`${styles.socialMarquee} ${hasScrolled ? styles.socialMarqueeVisible : ''}`}>
+        <div className={styles.socialMarqueeTrack}>
+          <div className={styles.socialMarqueeContent}>
+            <a href="https://instagram.com" target="_blank" rel="noreferrer" className={styles.socialMarqueeLink}>Instagram</a>
+            <span className={styles.socialMarqueeDot}>·</span>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className={styles.socialMarqueeLink}>LinkedIn</a>
+            <span className={styles.socialMarqueeDot}>·</span>
+            <a href="https://linktr.ee" target="_blank" rel="noreferrer" className={styles.socialMarqueeLink}>Linktree</a>
+            <span className={styles.socialMarqueeDot}>·</span>
+          </div>
+          <div className={styles.socialMarqueeContent} aria-hidden="true">
+            <a href="https://instagram.com" tabIndex={-1} className={styles.socialMarqueeLink}>Instagram</a>
+            <span className={styles.socialMarqueeDot}>·</span>
+            <a href="https://linkedin.com" tabIndex={-1} className={styles.socialMarqueeLink}>LinkedIn</a>
+            <span className={styles.socialMarqueeDot}>·</span>
+            <a href="https://linktr.ee" tabIndex={-1} className={styles.socialMarqueeLink}>Linktree</a>
+            <span className={styles.socialMarqueeDot}>·</span>
+          </div>
+        </div>
+      </div>
       <div className={styles.menuContainer}>
         <div className={styles.rightControls}>
           <button className={styles.menuBtn} onClick={toggleMenu}>

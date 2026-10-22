@@ -6,6 +6,7 @@ import Image from 'next/image';
 import styles from './Hero.module.css';
 import logo from '../../assets/logo.svg';
 import heroBottomLeft from '../../assets/icons/hero-bottom-left.svg';
+import TextReveal from '../../components/TextReveal';
 
 // Big Images
 import heroBig1 from '../../assets/images/images-big-hero/image-hero-01-big.png';
@@ -120,9 +121,9 @@ export default function Hero() {
 
       {/* Top Header */}
       <header className={styles.header}>
-        <h2 className={styles.leftHeader}>
+        <TextReveal as="h2" className={styles.leftHeader}>
           building dreams.
-        </h2>
+        </TextReveal>
       </header>
 
       {/* Main Title / Logo */}
@@ -133,7 +134,7 @@ export default function Hero() {
       {/* Footer / Controls */}
       <footer className={styles.footer}>
         <div className={styles.scroleBtn}>
-          Scrolle
+          ARK.7
         </div>
 
         <div className={styles.miniVisualizer}>

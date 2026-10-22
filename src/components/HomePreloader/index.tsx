@@ -24,7 +24,7 @@ export default function HomePreloader() {
     const tl = gsap.timeline();
 
     // Fast strobe effect between background images
-    const totalLoops = 4;
+    const totalLoops = 2;
     for (let loop = 0; loop < totalLoops; loop++) {
       for (let i = 0; i < images.length; i++) {
         tl.set(imagesRef.current, { opacity: 0 });
@@ -93,7 +93,7 @@ export default function HomePreloader() {
               alt={`Preloader background ${i + 1}`}
               className={styles.bgImage}
               ref={(el) => { imagesRef.current[i] = el; }}
-              priority
+              priority={i === 0}
             />
           ))}
           <div className={styles.whiteBg} ref={whiteBgRef} />

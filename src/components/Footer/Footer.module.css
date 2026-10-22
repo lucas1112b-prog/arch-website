@@ -45,6 +45,7 @@
 .navLink {
   color: #fff;
   text-decoration: none;
+  font-family: var(--font-familjen-grotesk);
   font-size: 0.9rem;
   font-weight: 600;
   transition: opacity 0.3s ease;
@@ -75,6 +76,9 @@
   cursor: pointer;
 }
 
+.mainTitleText {
+  display: inline-block;
+}
 .mainTitle:hover .bigArrow {
   transform: translateX(4px);
 }
