@@ -8,8 +8,9 @@
   --background: var(--color-white);
   --foreground: var(--color-black);
 
-  --font-neue-haas: "neue-haas-grotesk-display", "Neue Haas Grotesk Display", sans-serif;
-  --font-familjen-grotesk: "Familjen Grotesk", "familjen-grotesk", sans-serif;
+  --font-peridot: "peridot-pe-variable", sans-serif;
+  --font-neue-haas: var(--font-peridot);
+  --font-familjen-grotesk: var(--font-peridot);
 }
 
 * {
@@ -33,7 +34,7 @@ body {
   /* Makes scrollbar float on top of content */
   background-color: var(--color-dark-grey);
   color: var(--foreground);
-  font-family: var(--font-neue-haas);
+  font-family: var(--font-peridot);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

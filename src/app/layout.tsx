@@ -19,13 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="stylesheet" href="https://use.typekit.net/kvb0uhi.css" />
+        <link rel="stylesheet" href="https://use.typekit.net/cmv7qak.css" />
       </head>
       <body>
         <PageTransition>
