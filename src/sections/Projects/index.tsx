@@ -472,6 +472,11 @@ export default function Projects() {
 
       CustomEase.create('osmo-ease', '0.22, 1, 0.36, 1');
 
+      if (modalContainerRef.current) {
+        gsap.set(modalContainerRef.current, { clearProps: 'all', autoAlpha: 1, y: 0 });
+      }
+      gsap.set(modalImageRef.current, { clearProps: 'opacity,visibility', autoAlpha: 1 });
+
       const sourceWrapper = itemPreviewRefs.current[projectId];
       if (sourceWrapper) {
         gsap.set(sourceWrapper, { opacity: 0 });
@@ -1045,6 +1050,7 @@ export default function Projects() {
                 ref={(el) => {
                   itemPreviewRefs.current[project.id] = el;
                 }}
+                data-flip-id={`project-flip-img-${project.id}`}
                 className={`${styles.imagePreviewWrapper} ${styles.imagePreviewSource}`}
               >
                 <Image
