@@ -12,33 +12,80 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Manifesto() {
   const textRef = useRef<HTMLParagraphElement>(null);
+  const dividerLineRef = useRef<HTMLDivElement>(null);
+  const crosshairRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const element = textRef.current;
-    if (!element) return;
+    const divider = dividerLineRef.current;
+    const crosshair = crosshairRef.current;
 
-    const split = new SplitType(element, { types: 'words,chars' });
-    const chars = (split.chars ?? []).filter((char) => !char.closest(`.${styles.introHighlight}`));
+    let split: SplitType | null = null;
+    let textTween: gsap.core.Tween | null = null;
 
-    const tween = gsap.fromTo(
-      chars,
-      { color: 'rgba(255, 255, 255, 0.18)' },
-      {
-        color: 'rgba(255, 255, 255, 0.82)',
-        stagger: 0.035,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top bottom',
-          end: 'bottom center',
-          scrub: 1,
-        },
-      }
-    );
+    if (element) {
+      split = new SplitType(element, { types: 'words,chars' });
+      const chars = (split.chars ?? []).filter((char) => !char.closest(`.${styles.introHighlight}`));
+
+      textTween = gsap.fromTo(
+        chars,
+        { color: 'rgba(255, 255, 255, 0.18)' },
+        {
+          color: 'rgba(255, 255, 255, 0.82)',
+          stagger: 0.035,
+          scrollTrigger: {
+            trigger: element,
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: 1,
+          },
+        }
+      );
+    }
+
+    const dividerTween = divider
+      ? gsap.fromTo(
+          divider,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: divider,
+              start: 'top 88%',
+              end: 'top 52%',
+              scrub: 1,
+            },
+          }
+        )
+      : null;
+
+    const crosshairTween = crosshair
+      ? gsap.fromTo(
+          crosshair,
+          { autoAlpha: 0, scale: 0.6 },
+          {
+            autoAlpha: 1,
+            scale: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: divider,
+              start: 'top 72%',
+              end: 'top 55%',
+              scrub: 1,
+            },
+          }
+        )
+      : null;
 
     return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-      split.revert();
+      textTween?.scrollTrigger?.kill();
+      textTween?.kill();
+      dividerTween?.scrollTrigger?.kill();
+      dividerTween?.kill();
+      crosshairTween?.scrollTrigger?.kill();
+      crosshairTween?.kill();
+      split?.revert();
     };
   }, []);
 
@@ -64,10 +111,11 @@ export default function Manifesto() {
           </div>
 
           <div className={styles.dividerRow}>
-            <div className={styles.dividerLine}>
-              <div className={styles.crosshairTrack}>
-                <span className={styles.crosshair} aria-hidden="true">+</span>
-              </div>
+            <div className={styles.dividerTrack}>
+              <div ref={dividerLineRef} className={styles.dividerLine} />
+            </div>
+            <div className={styles.crosshairTrack}>
+              <span ref={crosshairRef} className={styles.crosshair} aria-hidden="true">+</span>
             </div>
           </div>
 
