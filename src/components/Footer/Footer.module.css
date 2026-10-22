@@ -1,149 +1,380 @@
 .footer {
-  width: 100%;
-  height: 60vh;
-  background-color: #000;
-  display: flex;
   position: relative;
-  z-index: 10;
+  width: 100%;
+  background-color: #000000;
+  color: var(--color-white);
+  padding: clamp(64px, 8vh, 100px) clamp(24px, 4.5vw, 72px) clamp(24px, 3vh, 36px);
+  box-sizing: border-box;
   overflow: hidden;
-
-.leftSide {
-  flex: 2;
-  padding: 80px 60px;
+  z-index: 10;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  position: relative;
 }
 
-.cornerIcon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 70px;
-  height: 70px;
-  z-index: 2;
-}
-
-.navBox {
-  margin-top: 120px;
-}
-
-.navLinks {
+/* ========================================================
+   Top Right Pill Badges
+   ======================================================== */
+.topActionsRow {
   display: flex;
-  align-items: center;
-  gap: 15px;
-  background-color: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  padding: 12px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  width: fit-content;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: clamp(32px, 5vh, 60px);
 }
 
-.navLink {
-  color: #fff;
-  text-decoration: none;
+.topPillsGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.topPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.8);
   font-family: var(--font-familjen-grotesk);
-  font-size: 0.9rem;
-  font-weight: 600;
-  transition: opacity 0.3s ease;
-}
-
-.navLink:hover {
-  opacity: 0.7;
-}
-
-.separator {
-  color: rgba(255, 255, 255, 0.3);
-  font-size: 0.8rem;
-}
-
-.bottomContent {
-  margin-bottom: 20px;
-}
-
-.mainTitle {
-  font-size: clamp(3rem, 8vw, 7rem);
-  font-weight: 800;
-  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  display: flex;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.topPill:hover {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-white);
+  transform: translateX(-2px);
+}
+
+.pillPlus {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 400;
+  transition: color 0.25s ease;
+}
+
+.topPill:hover .pillPlus {
+  color: var(--color-yellow);
+}
+
+/* ========================================================
+   Main Content: Two-Column Layout
+   ======================================================== */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  column-gap: clamp(40px, 6vw, 96px);
   align-items: center;
-  gap: 40px;
-  line-height: 1;
-  cursor: pointer;
+  width: 100%;
 }
 
-.mainTitleText {
-  display: inline-block;
-}
-.mainTitle:hover .bigArrow {
-  transform: translateX(4px);
-}
-
-.bigArrow {
-  width: 100px;
-  height: auto;
-  stroke: #fff;
-  stroke-width: 2;
-  transform: translateX(0px);
-  transition: transform 0.3s ease;
+/* Left Column: Huge Headline + Phone Badge */
+.leftCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
-.rightSide {
-  flex: 1;
-  height: 100%;
+.headline {
+  margin: 0;
+  color: var(--color-white);
+  font-family: var(--font-neue-haas);
+  font-size: clamp(3.4rem, 7.8vw, 8.4rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
 }
 
-.footerImage {
+.phoneBadge {
+  margin-top: clamp(32px, 5vh, 52px);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 20px 8px 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--color-white);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.phoneBadge:hover {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.phoneAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #1a1a1a;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatarImg {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+}
+
+.phoneNumber {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.88rem;
+  font-weight: 550;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Right Column: Bracket Tag + Description + Action Buttons */
+.rightCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 540px;
+}
+
+.bracketTag {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.65);
+  text-transform: uppercase;
+  margin-bottom: clamp(20px, 3vh, 32px);
+}
+
+.description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-familjen-grotesk);
+  font-size: clamp(1.1rem, 1.45vw, 1.35rem);
+  font-weight: 450;
+  line-height: 1.42;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(32px, 4.5vh, 48px);
+}
+
+.actionsRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.76rem;
+  font-weight: 550;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.actionBtn:hover {
+  background: var(--color-white);
+  color: #000000;
+  border-color: var(--color-white);
+  transform: translateY(-2px);
+}
+
+.actionArrow {
+  font-size: 0.95rem;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.actionBtn:hover .actionArrow {
+  transform: translate(2px, -2px);
+}
+
+/* ========================================================
+   Bottom Bar & Metadata
+   ======================================================== */
+.bottomDivider {
+  width: 100%;
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.12);
+  margin-top: clamp(64px, 10vh, 120px);
+  margin-bottom: 24px;
+}
+
+.bottomBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.74rem;
+  font-weight: 550;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.metaItemClock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.bracket {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-yellow);
+  box-shadow: 0 0 8px rgba(230, 191, 0, 0.8);
+  animation: livePulse 2s infinite ease-in-out;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.clockValue {
+  font-variant-numeric: tabular-nums;
+  color: var(--color-white);
+}
+
+.socialGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.metaLabel {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.4);
+  text-transform: uppercase;
+}
+
+.socialLink {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.74rem;
+  font-weight: 550;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.socialLink:hover {
+  color: var(--color-yellow);
+}
+
+.langItem {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.74rem;
+  font-weight: 550;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ========================================================
+   Responsive Media Queries
+   ======================================================== */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    row-gap: 52px;
+  }
+
+  .rightCol {
+    max-width: 100%;
+  }
+
+  .bottomBar {
+    gap: 16px;
+  }
 }
 
 @media (max-width: 768px) {
   .footer {
-    flex-direction: column;
-    height: auto;
-    padding: 0;
+    padding: 64px 20px 28px;
   }
 
-  .leftSide {
-    padding: 60px 20px;
+  .topActionsRow {
+    justify-content: flex-start;
+    margin-bottom: 40px;
   }
 
-  .navBox {
-    margin-top: 60px;
-  }
-
-  .navLinks {
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 10px 15px;
-  }
-
-  .navLink {
-    font-size: 0.8rem;
-  }
-
-  .mainTitle {
-    font-size: 2.5rem;
-    gap: 20px;
-    flex-direction: column;
+  .topPillsGroup {
     align-items: flex-start;
-  }
-
-  .bigArrow {
-    width: 60px;
-  }
-
-  .rightSide {
-    height: 300px;
     width: 100%;
   }
 
-  .cornerIcon {
-    width: 50px;
-    height: 50px;
+  .topPill {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .headline {
+    font-size: clamp(2.8rem, 11vw, 4.4rem);
+  }
+
+  .actionsRow {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .actionBtn {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .bottomBar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .socialGroup {
+    width: 100%;
+    justify-content: space-between;
   }
 }
