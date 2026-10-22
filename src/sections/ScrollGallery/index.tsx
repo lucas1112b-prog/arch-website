@@ -195,8 +195,8 @@ export default function ScrollGallery() {
             <TransitionLink href="/contato" className={styles.cta}>
               <span className={styles.ctaLabelMask}>
                 <span className={styles.ctaLabelTrack}>
-                  <span className={styles.ctaLabel}>MAKE IT HAPPEN</span>
-                  <span className={styles.ctaLabel} aria-hidden="true">MAKE IT HAPPEN</span>
+                  <span className={styles.ctaLabel}>FAZER ACONTECER</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">FAZER ACONTECER</span>
                 </span>
               </span>
               <span className={styles.ctaArrowBox} aria-hidden="true">

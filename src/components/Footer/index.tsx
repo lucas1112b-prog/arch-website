@@ -34,8 +34,8 @@ export default function Footer() {
         {/* Left Column */}
         <div className={styles.leftCol}>
           <h2 className={styles.headline}>
-            BRIEF US<br />
-            SOMETHING.
+            CONTE-NOS<br />
+            SEU PROJETO.
           </h2>
 
           <a href="tel:+554830284440" className={styles.phoneBadge} aria-label="Telefone do estúdio">
@@ -55,19 +55,19 @@ export default function Footer() {
         {/* Right Column */}
         <div className={styles.rightCol}>
           <div className={styles.bracketTag}>
-            <span>[ GET IN TOUCH ]</span>
+            <span>[ ENTRE EM CONTATO ]</span>
           </div>
 
           <p className={styles.description}>
-            Feel free to reach out and discuss your project. We'll make it sharper.
+            Fique à vontade para entrar em contato e conversar sobre o seu projeto. Vamos torná-lo memorável.
           </p>
 
           <div className={styles.actionsRow}>
             <TransitionLink href="/contato" className={styles.actionBtn}>
               <span className={styles.ctaLabelMask}>
                 <span className={styles.ctaLabelTrack}>
-                  <span className={styles.ctaLabel}>START A PROJECT</span>
-                  <span className={styles.ctaLabel} aria-hidden="true">START A PROJECT</span>
+                  <span className={styles.ctaLabel}>INICIAR PROJETO</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">INICIAR PROJETO</span>
                 </span>
               </span>
               <span className={styles.ctaArrowBox} aria-hidden="true">
@@ -96,8 +96,8 @@ export default function Footer() {
             >
               <span className={styles.ctaLabelMask}>
                 <span className={styles.ctaLabelTrack}>
-                  <span className={styles.ctaLabel}>SCHEDULE A CALL</span>
-                  <span className={styles.ctaLabel} aria-hidden="true">SCHEDULE A CALL</span>
+                  <span className={styles.ctaLabel}>AGENDAR REUNIÃO</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">AGENDAR REUNIÃO</span>
                 </span>
               </span>
               <span className={styles.ctaArrowBox} aria-hidden="true">
@@ -127,11 +127,11 @@ export default function Footer() {
       {/* Bottom Metadata Bar */}
       <div className={styles.bottomBar}>
         <div className={styles.metaItem}>
-          <span>25+ DIGITAL & ARCH FREAKS</span>
+          <span>25+ ESPECIALISTAS EM ARQ & DIGITAL</span>
         </div>
 
         <div className={styles.metaItem}>
-          <span>FLORIANÓPOLIS BASED</span>
+          <span>SEDIADO EM FLORIANÓPOLIS</span>
         </div>
 
         <div className={styles.metaItemClock} aria-label="Horário de Brasília">
@@ -142,7 +142,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.socialGroup}>
-          <span className={styles.metaLabel}>FOLLOW US</span>
+          <span className={styles.metaLabel}>SIGA-NOS</span>
           <a
             href="https://www.instagram.com"
             target="_blank"
