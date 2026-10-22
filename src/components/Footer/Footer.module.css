@@ -84,64 +84,129 @@
   color: rgba(255, 255, 255, 0.95);
 }
 
-/* Right Column: Bracket Tag + Description + Action Buttons */
+/* Right Column: Featured Project Card */
 .rightCol {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  max-width: 540px;
+  width: 100%;
+  max-width: 520px;
+  justify-self: end;
 }
 
-.bracketTag {
-  font-family: var(--font-familjen-grotesk);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  color: rgba(255, 255, 255, 0.65);
-  text-transform: uppercase;
-  margin-bottom: clamp(20px, 3vh, 32px);
-}
-
-.description {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.85);
-  font-family: var(--font-familjen-grotesk);
-  font-size: clamp(1.1rem, 1.45vw, 1.35rem);
-  font-weight: 450;
-  line-height: 1.42;
-  letter-spacing: -0.02em;
-  margin-bottom: clamp(32px, 4.5vh, 48px);
-}
-
-.actionsRow {
+.projectCard {
   display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  group: projectCard;
 }
 
-.actionBtn {
+.projectImageWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #141414;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.projectImage {
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+  filter: saturate(0.95);
+}
+
+.projectCard:hover .projectImage {
+  transform: scale(1.05);
+  filter: saturate(1.1);
+}
+
+.projectImageOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.projectBadge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 5px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  z-index: 2;
+}
+
+.projectInfoRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
+}
+
+.projectMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.projectCategory {
+  font-family: var(--font-familjen-grotesk);
+  font-size: 0.68rem;
+  font-weight: 550;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.projectName {
+  margin: 0;
+  font-family: var(--font-neue-haas);
+  font-size: clamp(1.15rem, 1.45vw, 1.4rem);
+  font-weight: 600;
+  color: var(--color-white);
+  letter-spacing: -0.015em;
+  transition: color 0.25s ease;
+}
+
+.projectCard:hover .projectName {
+  color: var(--color-yellow);
+}
+
+.viewProjectBtn {
   display: inline-flex;
   align-items: center;
   gap: 0.75em;
-  padding: 0.8em 1.2em;
+  padding: 0.75em 1.15em;
   border: 1px solid #ffffff57;
   background-color: #ffffff14;
   backdrop-filter: blur(30px);
   color: var(--color-white);
   font-family: var(--font-familjen-grotesk);
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.01em;
-  text-decoration: none;
   text-transform: uppercase;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  cursor: pointer;
+  flex-shrink: 0;
 }
 
-.actionBtn:hover,
-.actionBtn:focus-visible {
+.projectCard:hover .viewProjectBtn,
+.viewProjectBtn:hover {
   background-color: var(--color-yellow);
   color: #000000;
   border-color: var(--color-yellow);
@@ -169,8 +234,8 @@
   white-space: nowrap;
 }
 
-.actionBtn:hover .ctaLabelTrack,
-.actionBtn:focus-visible .ctaLabelTrack {
+.projectCard:hover .ctaLabelTrack,
+.viewProjectBtn:hover .ctaLabelTrack {
   animation: footerCtaSplitReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
@@ -205,8 +270,8 @@
   will-change: transform;
 }
 
-.actionBtn:hover .ctaArrowIcon,
-.actionBtn:focus-visible .ctaArrowIcon {
+.projectCard:hover .ctaArrowIcon,
+.viewProjectBtn:hover .ctaArrowIcon {
   transform: translateX(0.18em) rotate(-45deg);
 }
 
@@ -344,15 +409,9 @@
     font-size: clamp(2rem, 8vw, 3.2rem);
   }
 
-  .actionsRow {
-    flex-direction: column;
-    width: 100%;
+  .projectInfoRow {
+    flex-wrap: wrap;
     gap: 12px;
-  }
-
-  .actionBtn {
-    width: 100%;
-    justify-content: space-between;
   }
 
   .bottomBar {
