@@ -5,6 +5,7 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './ScrollGallery.module.css';
+import { TransitionLink } from '../../components/PageTransition';
 
 import imageOne from '../../assets/images/images-big-hero/image-hero-04-big.png';
 import imageTwo from '../../assets/images/images-big-hero/image-hero-02-big.png';
@@ -155,10 +156,30 @@ export default function ScrollGallery() {
             <h2 className={styles.title}>
               Vamos fazer<br />acontecer.
             </h2>
-            <div className={styles.pillBadge}>
-              <span className={styles.badgeDot} aria-hidden="true" />
-              <span>MAKE IT HAPPEN</span>
-            </div>
+            <TransitionLink href="/contato" className={styles.cta}>
+              <span className={styles.ctaLabelMask}>
+                <span className={styles.ctaLabelTrack}>
+                  <span className={styles.ctaLabel}>MAKE IT HAPPEN</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">MAKE IT HAPPEN</span>
+                </span>
+              </span>
+              <span className={styles.ctaArrowBox} aria-hidden="true">
+                <svg
+                  className={styles.ctaArrowIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12H19M19 12L13 6M19 12L13 18"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </TransitionLink>
           </div>
         </div>
       </div>
