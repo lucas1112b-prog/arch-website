@@ -12,57 +12,6 @@
 }
 
 /* ========================================================
-   Top Right Pill Badges
-   ======================================================== */
-.topActionsRow {
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-  margin-bottom: clamp(32px, 5vh, 60px);
-}
-
-.topPillsGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-}
-
-.topPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.02);
-  color: rgba(255, 255, 255, 0.8);
-  font-family: var(--font-familjen-grotesk);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.topPill:hover {
-  border-color: rgba(255, 255, 255, 0.45);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-white);
-  transform: translateX(-2px);
-}
-
-.pillPlus {
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 400;
-  transition: color 0.25s ease;
-}
-
-.topPill:hover .pillPlus {
-  color: var(--color-yellow);
-}
-
-/* ========================================================
    Main Content: Two-Column Layout
    ======================================================== */
 .mainGrid {
@@ -175,36 +124,91 @@
 .actionBtn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 13px 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  gap: 0.75em;
+  padding: 0.8em 1.2em;
+  border: 1px solid #ffffff57;
+  background-color: #ffffff14;
+  backdrop-filter: blur(30px);
   color: var(--color-white);
   font-family: var(--font-familjen-grotesk);
-  font-size: 0.76rem;
-  font-weight: 550;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
 }
 
-.actionBtn:hover {
-  background: var(--color-white);
+.actionBtn:hover,
+.actionBtn:focus-visible {
+  background-color: var(--color-yellow);
   color: #000000;
-  border-color: var(--color-white);
-  transform: translateY(-2px);
+  border-color: var(--color-yellow);
 }
 
-.actionArrow {
-  font-size: 0.95rem;
-  line-height: 1;
-  transition: transform 0.25s ease;
+.ctaLabelMask {
+  display: inline-flex;
+  height: 1.1em;
+  overflow: hidden;
+  vertical-align: bottom;
 }
 
-.actionBtn:hover .actionArrow {
-  transform: translate(2px, -2px);
+.ctaLabelTrack {
+  display: flex;
+  flex-direction: column;
+  height: 2.2em;
+  will-change: transform;
+}
+
+.ctaLabel {
+  display: block;
+  flex: 0 0 1.1em;
+  height: 1.1em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.actionBtn:hover .ctaLabelTrack,
+.actionBtn:focus-visible .ctaLabelTrack {
+  animation: footerCtaSplitReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes footerCtaSplitReveal {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1.1em);
+  }
+}
+
+.ctaArrowBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.78em;
+  height: 0.78em;
+  position: relative;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.ctaArrowIcon {
+  width: 100%;
+  height: 100%;
+  color: currentColor;
+  display: block;
+  transform: translateX(0) rotate(0deg);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.actionBtn:hover .ctaArrowIcon,
+.actionBtn:focus-visible .ctaArrowIcon {
+  transform: translateX(0.18em) rotate(-45deg);
 }
 
 /* ========================================================
@@ -335,21 +339,6 @@
 @media (max-width: 768px) {
   .footer {
     padding: 64px 20px 28px;
-  }
-
-  .topActionsRow {
-    justify-content: flex-start;
-    margin-bottom: 40px;
-  }
-
-  .topPillsGroup {
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .topPill {
-    width: 100%;
-    justify-content: space-between;
   }
 
   .headline {

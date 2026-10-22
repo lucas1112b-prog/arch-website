@@ -29,24 +29,6 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      {/* Top Right Action Pills */}
-      <div className={styles.topActionsRow}>
-        <div className={styles.topPillsGroup}>
-          <a href="#about" className={styles.topPill}>
-            <span>THIS IS US</span>
-            <span className={styles.pillPlus}>( + )</span>
-          </a>
-          <TransitionLink href="/contato" className={styles.topPill}>
-            <span>PITCHDECK</span>
-            <span className={styles.pillPlus}>( + )</span>
-          </TransitionLink>
-          <a href="#about" className={styles.topPill}>
-            <span>OUR AWWWARDS TALK</span>
-            <span className={styles.pillPlus}>( + )</span>
-          </a>
-        </div>
-      </div>
-
       {/* Main Grid: Left Massive Title & Phone Badge | Right Eyebrow, Text & CTA Buttons */}
       <div className={styles.mainGrid}>
         {/* Left Column */}
@@ -82,8 +64,28 @@ export default function Footer() {
 
           <div className={styles.actionsRow}>
             <TransitionLink href="/contato" className={styles.actionBtn}>
-              <span>START A PROJECT</span>
-              <span className={styles.actionArrow} aria-hidden="true">↗</span>
+              <span className={styles.ctaLabelMask}>
+                <span className={styles.ctaLabelTrack}>
+                  <span className={styles.ctaLabel}>START A PROJECT</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">START A PROJECT</span>
+                </span>
+              </span>
+              <span className={styles.ctaArrowBox} aria-hidden="true">
+                <svg
+                  className={styles.ctaArrowIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12H19M19 12L13 6M19 12L13 18"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </TransitionLink>
 
             <a
@@ -92,8 +94,28 @@ export default function Footer() {
               rel="noopener noreferrer"
               className={styles.actionBtn}
             >
-              <span>SCHEDULE A CALL</span>
-              <span className={styles.actionArrow} aria-hidden="true">↗</span>
+              <span className={styles.ctaLabelMask}>
+                <span className={styles.ctaLabelTrack}>
+                  <span className={styles.ctaLabel}>SCHEDULE A CALL</span>
+                  <span className={styles.ctaLabel} aria-hidden="true">SCHEDULE A CALL</span>
+                </span>
+              </span>
+              <span className={styles.ctaArrowBox} aria-hidden="true">
+                <svg
+                  className={styles.ctaArrowIcon}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12H19M19 12L13 6M19 12L13 18"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             </a>
           </div>
         </div>
