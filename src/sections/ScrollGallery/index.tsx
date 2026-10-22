@@ -20,8 +20,8 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ScrollGallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const topFadeBlackRef = useRef<HTMLDivElement>(null);
-  const bottomFadeBlackRef = useRef<HTMLDivElement>(null);
+  const topFadeRef = useRef<HTMLDivElement>(null);
+  const bottomFadeRef = useRef<HTMLDivElement>(null);
 
   const col1Ref = useRef<HTMLDivElement>(null);
   const col2Ref = useRef<HTMLDivElement>(null);
@@ -47,40 +47,34 @@ export default function ScrollGallery() {
         anticipatePin: 1,
       });
 
-      // Background color transitions smoothly to #000 as the scroll progresses
-      const bgTween = gsap.fromTo(
-        [sectionRef.current, containerRef.current],
-        { backgroundColor: '#121212' },
-        {
-          backgroundColor: '#000000',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top top',
-            end: endDistance,
-            scrub: 1,
-          },
-        }
-      );
-
-      // Top and bottom fade overlays smoothly transition from #121212 to #000000
-      const fadeElements = [topFadeBlackRef.current, bottomFadeBlackRef.current].filter(Boolean);
-      const fadesTween = fadeElements.length > 0
-        ? gsap.fromTo(
-            fadeElements,
-            { opacity: 0 },
-            {
-              opacity: 1,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top top',
-                end: endDistance,
-                scrub: 1,
-              },
-            }
-          )
-        : null;
+      // Background color and both top/bottom fade gradients transition smoothly from #121212 to #000000
+      const fadeState = { val: 18 };
+      const bgTween = gsap.to(fadeState, {
+        val: 0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: endDistance,
+          scrub: 1,
+        },
+        onUpdate: () => {
+          const v = Math.round(fadeState.val);
+          const colorHex = `#${v.toString(16).padStart(2, '0')}${v.toString(16).padStart(2, '0')}${v.toString(16).padStart(2, '0')}`;
+          if (sectionRef.current) {
+            sectionRef.current.style.backgroundColor = colorHex;
+          }
+          if (containerRef.current) {
+            containerRef.current.style.backgroundColor = colorHex;
+          }
+          if (topFadeRef.current) {
+            topFadeRef.current.style.background = `linear-gradient(to bottom, rgb(${v}, ${v}, ${v}) 0%, rgba(${v}, ${v}, ${v}, 0.85) 35%, rgba(${v}, ${v}, ${v}, 0.4) 70%, transparent 100%)`;
+          }
+          if (bottomFadeRef.current) {
+            bottomFadeRef.current.style.background = `linear-gradient(to top, rgb(${v}, ${v}, ${v}) 0%, rgba(${v}, ${v}, ${v}, 0.85) 35%, rgba(${v}, ${v}, ${v}, 0.4) 70%, transparent 100%)`;
+          }
+        },
+      });
 
       // Exactly 1 image per column across all tracks with distinct scrub speeds and heights
       const columns = [
@@ -117,8 +111,6 @@ export default function ScrollGallery() {
         pinTrigger.kill();
         bgTween.scrollTrigger?.kill();
         bgTween.kill();
-        fadesTween?.scrollTrigger?.kill();
-        fadesTween?.kill();
         columnTweens.forEach((tween) => {
           tween.scrollTrigger?.kill();
           tween.kill();
@@ -132,13 +124,11 @@ export default function ScrollGallery() {
   return (
     <section ref={sectionRef} className={styles.scrollGallerySection}>
       <div ref={containerRef} className={styles.container}>
-        {/* Soft top gradient fade: starts with #121212 and crossfades to #000 */}
-        <div className={styles.topFade} aria-hidden="true" />
-        <div ref={topFadeBlackRef} className={styles.topFadeBlack} aria-hidden="true" />
+        {/* Soft top gradient fade: smoothly transitions from #121212 to #000 */}
+        <div ref={topFadeRef} className={styles.topFade} aria-hidden="true" />
 
-        {/* Soft bottom gradient fade: starts with #121212 and crossfades to #000 */}
-        <div className={styles.bottomFade} aria-hidden="true" />
-        <div ref={bottomFadeBlackRef} className={styles.bottomFadeBlack} aria-hidden="true" />
+        {/* Soft bottom gradient fade: smoothly transitions from #121212 to #000 */}
+        <div ref={bottomFadeRef} className={styles.bottomFade} aria-hidden="true" />
 
         {/* Full-height vertical dividing lines */}
         <div className={styles.gridLines} aria-hidden="true">

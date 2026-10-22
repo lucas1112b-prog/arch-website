@@ -31,24 +31,6 @@
   z-index: 4;
 }
 
-.topFadeBlack {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: clamp(140px, 24vh, 260px);
-  background: linear-gradient(
-    to bottom,
-    #000000 0%,
-    rgba(0, 0, 0, 0.85) 35%,
-    rgba(0, 0, 0, 0.4) 70%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 4;
-  opacity: 0;
-}
-
 /* Smooth bottom fade gradient overlay matching section background */
 .bottomFade {
   position: absolute;
@@ -65,24 +47,6 @@
   );
   pointer-events: none;
   z-index: 4;
-}
-
-.bottomFadeBlack {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: clamp(140px, 24vh, 260px);
-  background: linear-gradient(
-    to top,
-    #000000 0%,
-    rgba(0, 0, 0, 0.85) 35%,
-    rgba(0, 0, 0, 0.4) 70%,
-    transparent 100%
-  );
-  pointer-events: none;
-  z-index: 4;
-  opacity: 0;
 }
 
 /* Full-height vertical grid lines */
