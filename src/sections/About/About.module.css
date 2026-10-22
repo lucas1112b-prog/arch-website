@@ -124,14 +124,14 @@
 }
 
 .title {
-  margin: 16px 0 0;
+  margin: 14px 0 0;
   color: var(--color-white);
   font-family: var(--font-neue-haas);
-  font-size: clamp(1.8rem, 2.7vw, 2.8rem);
-  font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.025em;
-  text-transform: uppercase;
+  font-size: clamp(1.4rem, 1.85vw, 1.95rem);
+  font-weight: 550;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-transform: none;
 }
 
 .description {
@@ -223,7 +223,8 @@
 
   .title {
     margin: 0;
-    font-size: clamp(1.4rem, 6vw, 2.1rem);
+    font-size: clamp(1.25rem, 5vw, 1.55rem);
+    text-transform: none;
   }
 
   .description {
