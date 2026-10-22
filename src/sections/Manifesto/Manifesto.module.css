@@ -56,6 +56,14 @@
   line-height: 1;
 }
 
+.desktopText {
+  display: block;
+}
+
+.mobileText {
+  display: none;
+}
+
 .introHighlight,
 .wordHighlight {
   display: inline;
@@ -248,6 +256,14 @@
     font-size: clamp(1.35rem, 5.5vw, 1.8rem);
     line-height: 1.15;
     letter-spacing: -0.02em;
+  }
+
+  .desktopText {
+    display: none !important;
+  }
+
+  .mobileText {
+    display: block !important;
   }
 
   .dividerRow {

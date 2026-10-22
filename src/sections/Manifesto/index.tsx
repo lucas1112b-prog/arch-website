@@ -11,35 +11,73 @@ import styles from './Manifesto.module.css';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Manifesto() {
-  const textRef = useRef<HTMLParagraphElement>(null);
+  const desktopTextRef = useRef<HTMLParagraphElement>(null);
+  const mobileTextRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    const element = textRef.current;
-    if (!element) return;
+    const mm = gsap.matchMedia();
 
-    const split = new SplitType(element, { types: 'words,chars' });
-    const chars = (split.chars ?? []).filter((char) => !char.closest(`.${styles.introHighlight}`));
+    // Desktop text animation
+    mm.add('(min-width: 769px)', () => {
+      const element = desktopTextRef.current;
+      if (!element) return;
 
-    const tween = gsap.fromTo(
-      chars,
-      { color: 'rgba(255, 255, 255, 0.18)' },
-      {
-        color: 'rgba(255, 255, 255, 0.82)',
-        stagger: 0.035,
-        scrollTrigger: {
-          trigger: element,
-          start: 'top bottom',
-          end: 'bottom center',
-          scrub: 1,
-        },
-      }
-    );
+      const split = new SplitType(element, { types: 'words,chars' });
+      const chars = (split.chars ?? []).filter((char) => !char.closest(`.${styles.introHighlight}`));
 
-    return () => {
-      tween.scrollTrigger?.kill();
-      tween.kill();
-      split.revert();
-    };
+      const tween = gsap.fromTo(
+        chars,
+        { color: 'rgba(255, 255, 255, 0.18)' },
+        {
+          color: 'rgba(255, 255, 255, 0.82)',
+          stagger: 0.035,
+          scrollTrigger: {
+            trigger: element,
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: 1,
+          },
+        }
+      );
+
+      return () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+        split.revert();
+      };
+    });
+
+    // Mobile text animation
+    mm.add('(max-width: 768px)', () => {
+      const element = mobileTextRef.current;
+      if (!element) return;
+
+      const split = new SplitType(element, { types: 'words,chars' });
+      const chars = (split.chars ?? []).filter((char) => !char.closest(`.${styles.introHighlight}`));
+
+      const tween = gsap.fromTo(
+        chars,
+        { color: 'rgba(255, 255, 255, 0.18)' },
+        {
+          color: 'rgba(255, 255, 255, 0.82)',
+          stagger: 0.035,
+          scrollTrigger: {
+            trigger: element,
+            start: 'top bottom',
+            end: 'bottom center',
+            scrub: 1,
+          },
+        }
+      );
+
+      return () => {
+        tween.scrollTrigger?.kill();
+        tween.kill();
+        split.revert();
+      };
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -55,7 +93,16 @@ export default function Manifesto() {
         {/* Right column: Main content (headline, divider, bottom row) */}
         <div className={styles.mainContentCol}>
           <div className={styles.headlineWrapper}>
-            <p ref={textRef} className={styles.text}>
+            {/* Desktop original longer text */}
+            <p ref={desktopTextRef} className={`${styles.text} ${styles.desktopText}`}>
+              Desde <span className={styles.introHighlight}>2024</span>, moldamos visões arrojadas em arquiteturas de alta{' '}
+              <span className={styles.wordHighlight}>performance</span>. Somos um estúdio guiado pelo diálogo entre a luz e a matéria, pela{' '}
+              <span className={styles.wordHighlight}>precisão</span> técnica e pela busca constante por espaços vivos, atemporais e capazes de{' '}
+              <span className={styles.wordHighlight}>transformar</span> realidades.
+            </p>
+
+            {/* Mobile shorter text */}
+            <p ref={mobileTextRef} className={`${styles.text} ${styles.mobileText}`}>
               Desde <span className={styles.introHighlight}>2024</span>, moldamos visões arrojadas em arquiteturas de alta{' '}
               <span className={styles.wordHighlight}>performance</span>. Criamos espaços vivos e{' '}
               <span className={styles.wordHighlight}>precisos</span>, capazes de{' '}
