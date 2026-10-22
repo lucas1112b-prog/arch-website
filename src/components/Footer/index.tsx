@@ -63,15 +63,10 @@ export default function Footer() {
                 sizes="(max-width: 768px) 100vw, 42vw"
                 className={styles.projectImage}
               />
-              <div className={styles.projectImageOverlay} />
-              <span className={styles.projectBadge}>[ PROJETO EM DESTAQUE ]</span>
             </div>
 
             <div className={styles.projectInfoRow}>
-              <div className={styles.projectMeta}>
-                <span className={styles.projectCategory}>CLUBE RESIDENCIAL</span>
-                <h3 className={styles.projectName}>Club Reserva da Pedra</h3>
-              </div>
+              <h3 className={styles.projectName}>Club Reserva da Pedra</h3>
 
               <div className={styles.viewProjectBtn}>
                 <span className={styles.ctaLabelMask}>

@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   column-gap: clamp(40px, 6vw, 96px);
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
 }
 
@@ -89,8 +89,9 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 520px;
+  max-width: 480px;
   justify-self: end;
+  margin-top: clamp(36px, 5.5vh, 76px);
 }
 
 .projectCard {
@@ -100,13 +101,12 @@
   text-decoration: none;
   color: inherit;
   cursor: pointer;
-  group: projectCard;
 }
 
 .projectImageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 2.2 / 1;
   overflow: hidden;
   background-color: #141414;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -123,68 +123,25 @@
   filter: saturate(1.1);
 }
 
-.projectImageOverlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.45) 0%, transparent 60%);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.projectBadge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  font-family: var(--font-familjen-grotesk);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.9);
-  text-transform: uppercase;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(12px);
-  padding: 5px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  z-index: 2;
-}
-
 .projectInfoRow {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 16px;
+  margin-top: 14px;
   width: 100%;
-}
-
-.projectMeta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.projectCategory {
-  font-family: var(--font-familjen-grotesk);
-  font-size: 0.68rem;
-  font-weight: 550;
-  letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
 }
 
 .projectName {
   margin: 0;
   font-family: var(--font-neue-haas);
-  font-size: clamp(1.15rem, 1.45vw, 1.4rem);
-  font-weight: 600;
+  font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+  font-weight: 550;
   color: var(--color-white);
   letter-spacing: -0.015em;
   transition: color 0.25s ease;
 }
 
-.projectCard:hover .projectName {
-  color: var(--color-yellow);
-}
 
 .viewProjectBtn {
   display: inline-flex;
@@ -393,6 +350,7 @@
 
   .rightCol {
     max-width: 100%;
+    margin-top: 0;
   }
 
   .bottomBar {
