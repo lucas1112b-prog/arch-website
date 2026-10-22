@@ -9,7 +9,7 @@
   --foreground: var(--color-black);
 
   --font-neue-haas: "neue-haas-grotesk-display", "Neue Haas Grotesk Display", sans-serif;
-  --font-familjen-grotesk: "familjen-grotesk", "Familjen Grotesk", sans-serif;
+  --font-familjen-grotesk: "Familjen Grotesk", "familjen-grotesk", sans-serif;
 }
 
 * {

@@ -52,17 +52,10 @@
   color: rgba(255, 255, 255, 0.91);
   font-family: var(--font-familjen-grotesk);
   font-size: clamp(2.3rem, 3.7vw, 4.25rem);
-  font-weight: 600;
+  font-weight: 550;
   line-height: 1;
 }
 
-.desktopText {
-  display: block;
-}
-
-.mobileText {
-  display: none;
-}
 
 .introHighlight,
 .wordHighlight {
@@ -258,13 +251,6 @@
     letter-spacing: -0.02em;
   }
 
-  .desktopText {
-    display: none !important;
-  }
-
-  .mobileText {
-    display: block !important;
-  }
 
   .dividerRow {
     margin: 56px 0 44px;
