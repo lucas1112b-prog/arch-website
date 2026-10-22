@@ -15,16 +15,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const aboutSlides = [
   {
+    title: 'Abordagem Singular',
     image: imgAboutOne,
     alt: 'Arquitetura integrada à paisagem',
     text: 'Não acreditamos em soluções genéricas. Nosso sucesso nasce de entender os desafios únicos de cada cliente, identificando a melhor abordagem para entregar projetos técnicos e personalizados sob medida.',
   },
   {
+    title: 'Sensibilidade & Precisão',
     image: imgAboutTwo,
     alt: 'Espaço contemporâneo com luz natural',
     text: 'Cada projeto nasce da leitura precisa do lugar, do programa e das pessoas que irão ocupá-lo, transformando necessidades complexas em decisões claras.',
   },
   {
+    title: 'Espaços para a Vida',
     image: imgAboutThree,
     alt: 'Arquitetura conectada à vida',
     text: 'Criamos espaços duradouros, sensíveis e vivos, onde matéria, luz e uso se encontram para construir experiências que permanecem.',
@@ -69,16 +72,23 @@ export default function About() {
       const splits: { element: HTMLElement; split: SplitType }[] = [];
 
       slides.forEach((slide, index) => {
+        const title = slide.querySelector<HTMLElement>(`.${styles.title}`);
         const description = slide.querySelector<HTMLElement>(`.${styles.description}`);
         const counter = slide.querySelector<HTMLElement>(`.${styles.counter}`);
         const divider = slide.querySelector<HTMLElement>(`.${styles.divider}`);
         const image = slide.querySelector<HTMLElement>(`.${styles.image}`);
         const imageParallax = slide.querySelector<HTMLElement>(`.${styles.imageParallax}`);
 
+        if (index > 0 && title) {
+          const splitTitle = new SplitType(title, { types: 'words' });
+          gsap.set(splitTitle.words, { y: 20, opacity: 0, filter: 'blur(10px)' });
+          splits.push({ element: title, split: splitTitle });
+        }
+
         if (index > 0 && description) {
-          const split = new SplitType(description, { types: 'words' });
-          gsap.set(split.words, { y: 20, opacity: 0, filter: 'blur(10px)' });
-          splits.push({ element: description, split });
+          const splitDesc = new SplitType(description, { types: 'words' });
+          gsap.set(splitDesc.words, { y: 20, opacity: 0, filter: 'blur(10px)' });
+          splits.push({ element: description, split: splitDesc });
         }
 
         if (index > 0 && counter) {
@@ -122,12 +132,16 @@ export default function About() {
           0
         );
       }
+
       const animateTextIn = (slide: HTMLElement, position: number) => {
+        const title = slide.querySelector<HTMLElement>(`.${styles.title}`);
         const description = slide.querySelector<HTMLElement>(`.${styles.description}`);
         const counter = slide.querySelector<HTMLElement>(`.${styles.counter}`);
         const divider = slide.querySelector<HTMLElement>(`.${styles.divider}`);
-        const splitEntry = splits.find((item) => item.element === description);
-        const split = splitEntry?.split;
+        const splitTitleEntry = splits.find((item) => item.element === title);
+        const splitTitle = splitTitleEntry?.split;
+        const splitDescEntry = splits.find((item) => item.element === description);
+        const splitDesc = splitDescEntry?.split;
 
         if (counter) {
           timeline.to(
@@ -143,9 +157,9 @@ export default function About() {
           );
         }
 
-        if (split) {
+        if (splitTitle) {
           timeline.to(
-            split.words,
+            splitTitle.words,
             {
               y: 0,
               opacity: 1,
@@ -154,7 +168,34 @@ export default function About() {
               stagger: 0.03,
               ease: 'power2.out',
             },
-            position + 0.05
+            position + 0.03
+          );
+        } else if (title) {
+          timeline.to(
+            title,
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              duration: 0.8,
+              ease: 'power2.out',
+            },
+            position + 0.03
+          );
+        }
+
+        if (splitDesc) {
+          timeline.to(
+            splitDesc.words,
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              duration: 0.8,
+              stagger: 0.03,
+              ease: 'power2.out',
+            },
+            position + 0.06
           );
         }
 
@@ -173,16 +214,18 @@ export default function About() {
         }
       };
 
-
-
       const animateTextOut = (slide: HTMLElement, position: number) => {
+        const title = slide.querySelector<HTMLElement>(`.${styles.title}`);
         const description = slide.querySelector<HTMLElement>(`.${styles.description}`);
         const counter = slide.querySelector<HTMLElement>(`.${styles.counter}`);
         const divider = slide.querySelector<HTMLElement>(`.${styles.divider}`);
         const content = slide.querySelector<HTMLElement>(`.${styles.rightContent}`);
-        const splitEntry = splits.find((item) => item.element === description);
-        const split = splitEntry?.split;
-        const words = split?.words ?? (description ? Array.from(description.querySelectorAll<HTMLElement>('.word')) : []);
+        const splitTitleEntry = splits.find((item) => item.element === title);
+        const splitTitle = splitTitleEntry?.split;
+        const titleWords = splitTitle?.words ?? (title ? Array.from(title.querySelectorAll<HTMLElement>('.word')) : []);
+        const splitDescEntry = splits.find((item) => item.element === description);
+        const splitDesc = splitDescEntry?.split;
+        const descWords = splitDesc?.words ?? (description ? Array.from(description.querySelectorAll<HTMLElement>('.word')) : []);
 
         if (counter) {
           timeline.to(
@@ -198,9 +241,36 @@ export default function About() {
           );
         }
 
-        if (words.length > 0) {
+        if (titleWords.length > 0) {
           timeline.to(
-            words,
+            titleWords,
+            {
+              y: -20,
+              opacity: 0,
+              filter: 'blur(10px)',
+              duration: 0.6,
+              stagger: 0.03,
+              ease: 'power2.in',
+            },
+            position + 0.01
+          );
+        } else if (title) {
+          timeline.to(
+            title,
+            {
+              y: -20,
+              opacity: 0,
+              filter: 'blur(10px)',
+              duration: 0.6,
+              ease: 'power2.in',
+            },
+            position + 0.01
+          );
+        }
+
+        if (descWords.length > 0) {
+          timeline.to(
+            descWords,
             {
               y: -20,
               opacity: 0,
@@ -314,6 +384,13 @@ export default function About() {
               <div className={styles.rightContainer}>
                 <div className={styles.rightContent}>
                   <span className={styles.counter}>{index + 1}/{aboutSlides.length}</span>
+                  {index === 0 ? (
+                    <TextReveal as="h2" className={styles.title} wordsOnly>
+                      {slide.title}
+                    </TextReveal>
+                  ) : (
+                    <h2 className={styles.title}>{slide.title}</h2>
+                  )}
                   {index === 0 ? (
                     <TextReveal as="p" className={styles.description} wordsOnly>
                       {slide.text}
