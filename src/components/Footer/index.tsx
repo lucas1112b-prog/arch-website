@@ -29,9 +29,6 @@ export default function Footer() {
 
   return (
     <footer className={styles.footer}>
-      {/* Subtle top yellow-to-transparent fade */}
-      <div className={styles.topYellowFade} aria-hidden="true" />
-
       {/* Main Grid: Left Massive Title & Phone Badge | Right Eyebrow, Text & CTA Buttons */}
       <div className={styles.mainGrid}>
         {/* Left Column */}

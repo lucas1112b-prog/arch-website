@@ -21,6 +21,7 @@ export default function ScrollGallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const topFadeBlackRef = useRef<HTMLDivElement>(null);
+  const bottomFadeBlackRef = useRef<HTMLDivElement>(null);
 
   const col1Ref = useRef<HTMLDivElement>(null);
   const col2Ref = useRef<HTMLDivElement>(null);
@@ -62,10 +63,11 @@ export default function ScrollGallery() {
         }
       );
 
-      // Top fade overlay smoothly transitions from #121212 to #000000
-      const topFadeTween = topFadeBlackRef.current
+      // Top and bottom fade overlays smoothly transition from #121212 to #000000
+      const fadeElements = [topFadeBlackRef.current, bottomFadeBlackRef.current].filter(Boolean);
+      const fadesTween = fadeElements.length > 0
         ? gsap.fromTo(
-            topFadeBlackRef.current,
+            fadeElements,
             { opacity: 0 },
             {
               opacity: 1,
@@ -115,8 +117,8 @@ export default function ScrollGallery() {
         pinTrigger.kill();
         bgTween.scrollTrigger?.kill();
         bgTween.kill();
-        topFadeTween?.scrollTrigger?.kill();
-        topFadeTween?.kill();
+        fadesTween?.scrollTrigger?.kill();
+        fadesTween?.kill();
         columnTweens.forEach((tween) => {
           tween.scrollTrigger?.kill();
           tween.kill();
@@ -133,6 +135,10 @@ export default function ScrollGallery() {
         {/* Soft top gradient fade: starts with #121212 and crossfades to #000 */}
         <div className={styles.topFade} aria-hidden="true" />
         <div ref={topFadeBlackRef} className={styles.topFadeBlack} aria-hidden="true" />
+
+        {/* Soft bottom gradient fade: starts with #121212 and crossfades to #000 */}
+        <div className={styles.bottomFade} aria-hidden="true" />
+        <div ref={bottomFadeBlackRef} className={styles.bottomFadeBlack} aria-hidden="true" />
 
         {/* Full-height vertical dividing lines */}
         <div className={styles.gridLines} aria-hidden="true">
