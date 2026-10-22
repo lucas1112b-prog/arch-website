@@ -20,6 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ScrollGallery() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const topFadeBlackRef = useRef<HTMLDivElement>(null);
 
   const col1Ref = useRef<HTMLDivElement>(null);
   const col2Ref = useRef<HTMLDivElement>(null);
@@ -44,6 +45,40 @@ export default function ScrollGallery() {
         pin: containerRef.current,
         anticipatePin: 1,
       });
+
+      // Background color transitions smoothly to #000 as the scroll progresses
+      const bgTween = gsap.fromTo(
+        [sectionRef.current, containerRef.current],
+        { backgroundColor: '#121212' },
+        {
+          backgroundColor: '#000000',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: endDistance,
+            scrub: 1,
+          },
+        }
+      );
+
+      // Top fade overlay smoothly transitions from #121212 to #000000
+      const topFadeTween = topFadeBlackRef.current
+        ? gsap.fromTo(
+            topFadeBlackRef.current,
+            { opacity: 0 },
+            {
+              opacity: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top top',
+                end: endDistance,
+                scrub: 1,
+              },
+            }
+          )
+        : null;
 
       // Exactly 1 image per column across all tracks with distinct scrub speeds and heights
       const columns = [
@@ -78,6 +113,10 @@ export default function ScrollGallery() {
 
       return () => {
         pinTrigger.kill();
+        bgTween.scrollTrigger?.kill();
+        bgTween.kill();
+        topFadeTween?.scrollTrigger?.kill();
+        topFadeTween?.kill();
         columnTweens.forEach((tween) => {
           tween.scrollTrigger?.kill();
           tween.kill();
@@ -91,8 +130,9 @@ export default function ScrollGallery() {
   return (
     <section ref={sectionRef} className={styles.scrollGallerySection}>
       <div ref={containerRef} className={styles.container}>
-        {/* Soft top gradient fade */}
+        {/* Soft top gradient fade: starts with #121212 and crossfades to #000 */}
         <div className={styles.topFade} aria-hidden="true" />
+        <div ref={topFadeBlackRef} className={styles.topFadeBlack} aria-hidden="true" />
 
         {/* Full-height vertical dividing lines */}
         <div className={styles.gridLines} aria-hidden="true">
