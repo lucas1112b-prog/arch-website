@@ -206,6 +206,7 @@ export default function Projects() {
   const previewIsCatchingUpRef = useRef(false);
   const lastPointerYRef = useRef<number | null>(null);
   const modalOverlayRef = useRef<HTMLDivElement>(null);
+  const modalContainerRef = useRef<HTMLDivElement>(null);
   const modalBackdropRef = useRef<HTMLDivElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
   const modalImageRef = useRef<HTMLDivElement>(null);
@@ -216,7 +217,6 @@ export default function Projects() {
   const marqueeRef = useRef<HTMLDivElement>(null);
   const modalLenisRef = useRef<Lenis | null>(null);
 
-  const pendingFlipRef = useRef<{ state: FlipState; projectId: string } | null>(null);
   const previewSizeRef = useRef({ width: 360, height: 360 * (9 / 16) });
 
   useLayoutEffect(() => {
@@ -403,36 +403,6 @@ export default function Projects() {
   }, [positionPreviewAt]);
 
   const isAnimatingRef = useRef(false);
-  // Mobile scroll trigger image previews
-  useEffect(() => {
-    const mm = gsap.matchMedia();
-
-    mm.add('(max-width: 768px)', () => {
-      const items = document.querySelectorAll(`.${styles.projectItem}`);
-      items.forEach((item) => {
-        const imgWrapper = item.querySelector(`.${styles.imagePreviewWrapper}`);
-        if (!imgWrapper) return;
-
-        gsap.fromTo(
-          imgWrapper,
-          { autoAlpha: 0, scale: 0.9 },
-          {
-            autoAlpha: 1,
-            scale: 1,
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 80%',
-              end: 'bottom 20%',
-              toggleActions: 'play reverse play reverse',
-            },
-          }
-        );
-      });
-    });
-
-    return () => mm.revert();
-  }, []);
-
 
   // Lock body scroll and pause Lenis when modal is active
   useEffect(() => {
@@ -450,8 +420,10 @@ export default function Projects() {
   }, [activeProjectId, lenis]);
 
   // Independent smooth scroll (Lenis) for modal images column
+  // Independent smooth scroll (Lenis) for modal images column (DESKTOP ONLY)
   useEffect(() => {
     if (!activeProjectId || !imagesColumnRef.current || !imagesContentRef.current) return;
+    if (typeof window !== 'undefined' && window.innerWidth <= 900) return;
 
     const modalLenis = new Lenis({
       wrapper: imagesColumnRef.current,
@@ -478,305 +450,210 @@ export default function Projects() {
     };
   }, [activeProjectId]);
 
-  // Sequential Timeline Animation:
-  // 1. A imagem se desloca para o topo esquerdo (Flip)
-  // 2. As imagens secundárias abaixo aparecem
-  // 3. A barra lateral das infos entra por OPACITY (sem slide) e com animação de SPLIT nos textos
+  // Clean Modal Entrance Animation (NO FLIP):
+  // Smooth fade-in of backdrop and modal contents without image flips
   useLayoutEffect(() => {
-    if (!pendingFlipRef.current) return;
-    const { state, projectId } = pendingFlipRef.current;
-    pendingFlipRef.current = null;
+    if (!activeProjectId) return;
 
-    if (activeProjectId && modalImageRef.current) {
-      CustomEase.create('osmo-ease', '0.22, 1, 0.36, 1');
+    isAnimatingRef.current = true;
 
-      const sourceWrapper = itemPreviewRefs.current[projectId];
-      if (sourceWrapper) {
-        gsap.set(sourceWrapper, { opacity: 0 });
-      }
+    // Reset scroll positions
+    if (modalOverlayRef.current) {
+      modalOverlayRef.current.scrollTop = 0;
+    }
+    if (imagesColumnRef.current) {
+      imagesColumnRef.current.scrollTop = 0;
+      imagesColumnRef.current.classList.add(styles.scrollable);
+    }
 
-      // Ensure left images column starts with overflow visible (no clipping during flip) and at top
-      if (imagesColumnRef.current) {
-        imagesColumnRef.current.classList.remove(styles.scrollable);
-        imagesColumnRef.current.scrollTop = 0;
-      }
+    // Initial state
+    if (gallerySlotsRef.current.length > 0) {
+      gsap.set(gallerySlotsRef.current, { autoAlpha: 0, y: 20 });
+    }
+    if (closeBtnRef.current) {
+      gsap.set(closeBtnRef.current, { autoAlpha: 0, scale: 0.85 });
+    }
 
-      // Initial state of gallery elements and close button
-      if (gallerySlotsRef.current.length > 0) {
-        gsap.set(gallerySlotsRef.current, { autoAlpha: 0, y: 30, scale: 0.98 });
-      }
-      if (closeBtnRef.current) {
-        gsap.set(closeBtnRef.current, { autoAlpha: 0, scale: 0.85 });
-      }
+    const splits: SplitType[] = [];
 
-      // Setup split text on ALL text elements in modal details
-      const splits: SplitType[] = [];
+    if (modalDetailsRef.current) {
+      gsap.set(modalDetailsRef.current, { autoAlpha: 0 });
 
-      if (modalDetailsRef.current) {
-        // Only opacity - NO slide!
-        gsap.set(modalDetailsRef.current, { autoAlpha: 0 });
+      const selectors = [
+        `.${styles.infosCategory}`,
+        `.${styles.infosCounter}`,
+        `.${styles.projectTitleModal}`,
+        `.${styles.metaRow} span:not(.${styles.dot})`,
+        `.${styles.accordionTitle}`,
+        `.${styles.accordionText}`,
+        `.${styles.accordionListItem}`,
+      ];
 
-        const selectors = [
-          `.${styles.infosCategory}`,
-          `.${styles.infosCounter}`,
-          `.${styles.projectTitleModal}`,
-          `.${styles.metaRow} span:not(.${styles.dot})`,
-          `.${styles.accordionTitle}`,
-          `.${styles.accordionText}`,
-          `.${styles.accordionListItem}`,
-        ];
+      const textEls = modalDetailsRef.current.querySelectorAll<HTMLElement>(selectors.join(', '));
 
-        const textEls = modalDetailsRef.current.querySelectorAll<HTMLElement>(selectors.join(', '));
-
-        textEls.forEach((el) => {
-          const s = new SplitType(el, { types: 'lines,words' });
-          gsap.set(s.lines, { overflow: 'hidden' });
-          gsap.set(s.words, { yPercent: 115 });
-          splits.push(s);
-        });
-      }
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          isAnimatingRef.current = false;
-        },
+      textEls.forEach((el) => {
+        const s = new SplitType(el, { types: 'lines,words' });
+        gsap.set(s.lines, { overflow: 'hidden' });
+        gsap.set(s.words, { yPercent: 115 });
+        splits.push(s);
       });
+    }
 
-      // Semi-transparent backdrop fades in softly
-      if (modalBackdropRef.current) {
+    const tl = gsap.timeline({
+      onComplete: () => {
+        isAnimatingRef.current = false;
+      },
+    });
+
+    if (modalBackdropRef.current) {
+      tl.fromTo(
+        modalBackdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: 'power2.out' },
+        0
+      );
+    }
+
+    if (modalContainerRef.current) {
+      tl.fromTo(
+        modalContainerRef.current,
+        { autoAlpha: 0, y: 15 },
+        { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power3.out' },
+        0.05
+      );
+    }
+
+    if (closeBtnRef.current) {
+      tl.to(
+        closeBtnRef.current,
+        { autoAlpha: 1, scale: 1, duration: 0.25, ease: 'power2.out' },
+        0.1
+      );
+    }
+
+    if (gallerySlotsRef.current.length > 0) {
+      tl.to(
+        gallerySlotsRef.current,
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.3,
+          stagger: 0.03,
+          ease: 'power2.out',
+        },
+        0.1
+      );
+    }
+
+    if (modalDetailsRef.current) {
+      tl.to(
+        modalDetailsRef.current,
+        {
+          autoAlpha: 1,
+          duration: 0.28,
+          ease: 'power2.out',
+          onStart: () => {
+            if (modalDetailsRef.current) {
+              modalDetailsRef.current.style.pointerEvents = 'auto';
+            }
+          },
+        },
+        0.15
+      );
+
+      const allWords = splits.flatMap((s) => s.words || []);
+      if (allWords.length > 0) {
+        tl.to(
+          allWords,
+          {
+            yPercent: 0,
+            duration: 0.45,
+            stagger: 0.008,
+            ease: 'power3.out',
+          },
+          '<'
+        );
+      }
+
+      const nonTextEls = modalDetailsRef.current.querySelectorAll<HTMLElement>(
+        `.${styles.dot}, .${styles.accordionIcon}, .${styles.accordionItem}, .${styles.nextProjectCard}`
+      );
+      if (nonTextEls.length > 0) {
         tl.fromTo(
-          modalBackdropRef.current,
-          { opacity: 0 },
-          { opacity: 1, duration: 0.35, ease: 'power2.out' },
-          0
-        );
-      }
-
-      // ETAPA 1: Primeiro a imagem se desloca (Flip) - Inicia em 0s no timeline
-      const flipAnim = Flip.from(state, {
-        targets: modalImageRef.current,
-        duration: 0.75,
-        ease: 'power3.inOut',
-        absolute: true,
-        zIndex: 999999,
-        onComplete: () => {
-          // Enable independent scrolling ONLY after the floating image has safely landed
-          if (imagesColumnRef.current) {
-            imagesColumnRef.current.classList.add(styles.scrollable);
-          }
-        },
-      });
-
-      tl.add(flipAnim, 0);
-
-      // Close button fades in on the left
-      if (closeBtnRef.current) {
-        tl.to(
-          closeBtnRef.current,
-          { autoAlpha: 1, scale: 1, duration: 0.3, ease: 'power2.out' },
-          '-=0.45'
-        );
-      }
-
-      // ETAPA 2: Imagens da galeria aparecem simultaneamente com o pouso da imagem
-      if (gallerySlotsRef.current.length > 0) {
-        tl.to(
-          gallerySlotsRef.current,
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.35,
-            stagger: 0.04,
-            ease: 'power2.out',
-          },
-          '-=0.4'
-        );
-      }
-
-      // ETAPA 3: A barra lateral das infos entra sem demora (em paralelo ao landing)
-      if (modalDetailsRef.current) {
-        tl.to(
-          modalDetailsRef.current,
-          {
-            autoAlpha: 1,
-            duration: 0.28,
-            ease: 'power2.out',
-            onStart: () => {
-              if (modalDetailsRef.current) {
-                modalDetailsRef.current.style.pointerEvents = 'auto';
-              }
-            },
-          },
+          nonTextEls,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.3, ease: 'power2.out', stagger: 0.03 },
           '<0.05'
         );
-
-        const allWords = splits.flatMap((s) => s.words || []);
-
-        if (allWords.length > 0) {
-          tl.to(
-            allWords,
-            {
-              yPercent: 0,
-              duration: 0.45,
-              stagger: 0.008,
-              ease: 'power3.out',
-            },
-            '<'
-          );
-        }
-
-        const nonTextEls = modalDetailsRef.current.querySelectorAll<HTMLElement>(
-          `.${styles.dot}, .${styles.accordionIcon}, .${styles.accordionItem}, .${styles.nextProjectCard}`
-        );
-        if (nonTextEls.length > 0) {
-          tl.fromTo(
-            nonTextEls,
-            { autoAlpha: 0 },
-            { autoAlpha: 1, duration: 0.3, ease: 'power2.out', stagger: 0.03 },
-            '<0.05'
-          );
-        }
-
-        if (marqueeRef.current) {
-          tl.fromTo(
-            marqueeRef.current,
-            { autoAlpha: 0, y: 24 },
-            { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' },
-            '<0.1'
-          );
-        }
       }
 
-      return () => {
-        splits.forEach((s) => s.revert());
-      };
+      if (marqueeRef.current) {
+        tl.fromTo(
+          marqueeRef.current,
+          { autoAlpha: 0, y: 24 },
+          { autoAlpha: 1, y: 0, duration: 0.3, ease: 'power2.out' },
+          '<0.1'
+        );
+      }
     }
+
+    return () => {
+      splits.forEach((s) => s.revert());
+    };
   }, [activeProjectId]);
 
   const selectProject = (projectId: string) => {
     if (isAnimatingRef.current || activeProjectId === projectId) return;
-
-    const sourceWrapper = itemPreviewRefs.current[projectId];
-    if (!sourceWrapper) {
-      setActiveProjectId(projectId);
-      return;
-    }
-
-    isAnimatingRef.current = true;
-
-    // Keep the global preview and Flip source invisible until the modal is ready.
-    if (previewStageRef.current) {
-      gsap.set(previewStageRef.current, { autoAlpha: 0 });
-    }
-
-    // Add flipping class so CSS transitions don't conflict with Flip.
-    // Capture the source geometry without flashing it in its original position.
-    sourceWrapper.classList.add(styles.flipping);
-    gsap.set(sourceWrapper, { opacity: 0 });
-    const state = Flip.getState(sourceWrapper);
-
-    pendingFlipRef.current = { state, projectId };
-    setOpenSection('challenge');
     setActiveProjectId(projectId);
-    if (imagesColumnRef.current) {
-      imagesColumnRef.current.classList.remove(styles.scrollable);
-      imagesColumnRef.current.scrollTop = 0;
-    }
+    setOpenSection('challenge');
   };
 
   const closeProject = useCallback(() => {
     if (!activeProjectId || isAnimatingRef.current) return;
-
-    const modalImg = modalImageRef.current;
-    const sourceWrapper = itemPreviewRefs.current[activeProjectId];
-
-    if (!modalImg || !sourceWrapper) {
-      setActiveProjectId(null);
-      if (previewStageRef.current) {
-        gsap.set(previewStageRef.current, { clearProps: 'opacity,visibility' });
-      }
-      return;
-    }
-
     isAnimatingRef.current = true;
-    sourceWrapper.classList.add(styles.flipping);
-
-    // Reset imagesColumn scroll and remove scrollable (overflow visible) before capturing Flip state
-    // so modalImg is never clipped on its return flight!
-    if (imagesColumnRef.current) {
-      modalLenisRef.current?.scrollTo(0, { immediate: true });
-      imagesColumnRef.current.classList.remove(styles.scrollable);
-      imagesColumnRef.current.scrollTop = 0;
-    }
-
-    // Capture state of "imagem deslocada" before any animation
-    const state = Flip.getState(modalImg);
 
     const tl = gsap.timeline({
       onComplete: () => {
         setActiveProjectId(null);
         isAnimatingRef.current = false;
-        sourceWrapper.classList.remove(styles.flipping);
-        gsap.set(sourceWrapper, { clearProps: 'all' });
-        if (previewStageRef.current) {
-          gsap.set(previewStageRef.current, { clearProps: 'opacity,visibility' });
+        if (modalDetailsRef.current) {
+          modalDetailsRef.current.style.pointerEvents = 'auto';
         }
       },
     });
 
-    // 1. Sidebar fecha por opacity (sem slide)
     if (modalDetailsRef.current) {
       modalDetailsRef.current.style.pointerEvents = 'none';
-      tl.to(modalDetailsRef.current, {
-        autoAlpha: 0,
-        duration: 0.28,
-        ease: 'power2.in',
-      });
-    }
-
-    // 2. Imagens da galeria desaparecem
-    if (gallerySlotsRef.current.length > 0) {
       tl.to(
-        gallerySlotsRef.current,
+        modalDetailsRef.current,
         {
           autoAlpha: 0,
-          y: 20,
-          duration: 0.25,
+          duration: 0.22,
           ease: 'power2.in',
-          stagger: 0.03,
         },
-        '-=0.15'
+        0
       );
     }
 
-    // 3. Botão de fechar e fundo suavizam
+    if (modalContainerRef.current) {
+      tl.to(
+        modalContainerRef.current,
+        { autoAlpha: 0, y: 15, duration: 0.25, ease: 'power2.in' },
+        0
+      );
+    }
+
     if (closeBtnRef.current) {
-      tl.to(closeBtnRef.current, { autoAlpha: 0, duration: 0.2 }, '-=0.2');
+      tl.to(closeBtnRef.current, { autoAlpha: 0, duration: 0.2, ease: 'power2.in' }, 0);
     }
+
     if (marqueeRef.current) {
-      tl.to(marqueeRef.current, { autoAlpha: 0, y: 24, duration: 0.2 }, '-=0.2');
+      tl.to(marqueeRef.current, { autoAlpha: 0, y: 24, duration: 0.2, ease: 'power2.in' }, 0);
     }
+
     if (modalBackdropRef.current) {
-      tl.to(modalBackdropRef.current, { opacity: 0, duration: 0.35, ease: 'power2.inOut' }, '-=0.1');
+      tl.to(modalBackdropRef.current, { opacity: 0, duration: 0.25, ease: 'power2.in' }, 0.05);
     }
-
-    // 4. CRITICAL FIX: Hide modalImg IMMEDIATELY so no duplicate copy is left behind!
-    tl.add(() => {
-      gsap.set(modalImg, { autoAlpha: 0, visibility: 'hidden' });
-      gsap.set(sourceWrapper, { autoAlpha: 1, visibility: 'visible' });
-    }, '-=0.15');
-
-    // 5. Flip do sourceWrapper de volta para a lista (apenas 1 imagem visível!)
-    const flipBack = Flip.from(state, {
-      targets: sourceWrapper,
-      duration: 0.8,
-      ease: 'power3.inOut',
-      absolute: true,
-      zIndex: 999999,
-    });
-
-    tl.add(flipBack, '-=0.15');
   }, [activeProjectId]);
 
   const navigateProject = (direction: number) => {
@@ -918,6 +795,28 @@ export default function Projects() {
                 }
               }}
             >
+              {/* Mobile Card Layout (Matching User Reference) */}
+              <div className={styles.mobileCardContent}>
+                <span className={styles.mobileYear}>{project.year}</span>
+                <div className={styles.mobileImageWrapper}>
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    className={styles.mobileImage}
+                    priority={idx === 0}
+                    sizes="(max-width: 768px) 100vw, 450px"
+                  />
+                </div>
+                <div className={styles.mobileInfo}>
+                  <span className={styles.mobileCategory}>{project.category}</span>
+                  <div className={styles.mobileTitleRow}>
+                    <h3 className={styles.mobileTitleText}>{project.title}</h3>
+                    <span className={styles.mobileArrow} aria-hidden="true">→</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Desktop heading */}
               <div className={styles.projectHeading}>
                 <h3 className={styles.projectTitle}>
                   <span className={styles.projectTitleMask}>
@@ -947,7 +846,6 @@ export default function Projects() {
                 ref={(el) => {
                   itemPreviewRefs.current[project.id] = el;
                 }}
-                data-flip-id={`project-flip-img-${project.id}`}
                 className={`${styles.imagePreviewWrapper} ${styles.imagePreviewSource}`}
               >
                 <Image
@@ -955,7 +853,7 @@ export default function Projects() {
                   alt={project.title}
                   className={styles.imagePreview}
                   priority={idx === 0}
-                  sizes="(max-width: 768px) 100vw, 450px"
+                  sizes="450px"
                 />
               </div>
             </article>
@@ -979,7 +877,7 @@ export default function Projects() {
             aria-hidden="true"
           />
 
-          <div className={styles.modalContainer}>
+          <div className={styles.modalContainer} ref={modalContainerRef}>
             {/* Floating Close Button in the UPPER LEFT - Clean minimalist cross */}
             <button
               type="button"
