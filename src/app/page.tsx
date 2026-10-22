@@ -6,6 +6,7 @@ import Hero from '../sections/Hero';
 import Manifesto from '../sections/Manifesto';
 import About from '../sections/About';
 import Team from '../sections/Team';
+import ScrollGallery from '../sections/ScrollGallery';
 import Projects from '../sections/Projects';
 import Footer from '../components/Footer';
 
@@ -18,6 +19,7 @@ export default function Home() {
       <About />
       <Projects />
       <Team />
+      <ScrollGallery />
       <Footer />
     </div>
   );

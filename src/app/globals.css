@@ -31,7 +31,7 @@ body {
   overflow-x: hidden;
   overflow-y: overlay;
   /* Makes scrollbar float on top of content */
-  background-color: var(--background);
+  background-color: var(--color-dark-grey);
   color: var(--foreground);
   font-family: var(--font-neue-haas);
   -webkit-font-smoothing: antialiased;

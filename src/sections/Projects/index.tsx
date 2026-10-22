@@ -433,6 +433,7 @@ export default function Projects() {
     return () => mm.revert();
   }, []);
 
+
   // Lock body scroll and pause Lenis when modal is active
   useEffect(() => {
     if (activeProjectId) {

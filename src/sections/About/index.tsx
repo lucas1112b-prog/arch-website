@@ -10,7 +10,6 @@ import TextReveal from '../../components/TextReveal';
 import imgAboutOne from '../../assets/images/images-big-hero/image-hero-01-big.png';
 import imgAboutTwo from '../../assets/images/images-big-hero/image-hero-02-big.png';
 import imgAboutThree from '../../assets/images/images-big-hero/image-hero-03-big.png';
-import bgIcon from '../../assets/icons/bg-icon-about.svg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,7 +35,6 @@ const aboutSlides = [
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const iconRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const slideRefs = useRef<(HTMLElement | null)[]>([]);
 
@@ -271,21 +269,6 @@ export default function About() {
         animateTextOut(previousSlide, position);
 
       });
-      if (iconRef.current) {
-        gsap.to(iconRef.current, {
-          y: 150,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      }
-
-
-
       return () => {
         splits.forEach(({ split }) => split.revert());
       };
@@ -299,10 +282,6 @@ export default function About() {
 
   return (
     <section ref={sectionRef} className={styles.aboutSection}>
-
-      <div className={styles.bgIcon} ref={iconRef}>
-        <Image src={bgIcon} alt="" fill style={{ objectFit: 'contain' }} />
-      </div>
       <div className={styles.container} ref={containerRef}>
         <div ref={progressBarRef} className={styles.progressBar} aria-hidden="true" />
         <div className={styles.slides}>
@@ -318,12 +297,12 @@ export default function About() {
                 <div className={styles.leftContent}>
                   <div className={styles.imageWrapper}>
                     <div className={styles.imageParallax}>
-                    <Image
-                      src={slide.image}
-                      alt={slide.alt}
-                      fill
-                      className={styles.image}
-                    />
+                      <Image
+                        src={slide.image}
+                        alt={slide.alt}
+                        fill
+                        className={styles.image}
+                      />
                     </div>
                     <button className={styles.playBtn} aria-label="Reproduzir vídeo">
                       <span className={styles.playIcon}></span>

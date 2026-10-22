@@ -6,8 +6,6 @@
   position: relative;
   z-index: 10;
   overflow: hidden;
-  box-shadow: 0 -20px 40px #0000000c;
-}
 
 .leftSide {
   flex: 2;

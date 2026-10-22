@@ -1,9 +1,9 @@
 .teamSection {
-  background-color: var(--color-beige);
-  color: var(--color-black);
+  background-color: var(--color-dark-grey);
+  color: var(--color-white);
   padding: 120px 40px;
   position: relative;
-  z-index: 1;
+  z-index: 5;
 }
 
 
@@ -11,21 +11,24 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 100px;
   gap: 40px;
+  background-color: var(--color-black);
+  padding: 42px;
 }
 
 .description {
-  max-width: 500px;
-  font-size: 1.4rem;
-  line-height: 1.35;
+  color: var(--color-white);
+  max-width: 440px;
+  font-size: 1.05rem;
+  line-height: 1.45;
   font-weight: 500;
   font-family: var(--font-familjen-grotesk);
   letter-spacing: -0.01em;
 }
 
 .title {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--color-white);
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.02em;
@@ -44,12 +47,31 @@
   object-fit: cover;
 }
 
+.imageReveal {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  z-index: 3;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.imageRevealColumn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-beige);
+  transform: scaleY(1);
+  transform-origin: bottom center;
+  will-change: transform;
+}
 .arrowIcon {
   position: absolute;
-  top: 0;
-  right: -2px;
-  width: 90px;
-  height: 90px;
+  top: 18px;
+  right: 18px;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
   z-index: 5;
   transition: transform .3s ease;
@@ -70,12 +92,13 @@
   }
 
   .description {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
+    line-height: 1.4;
     max-width: 100%;
   }
 
   .title {
-    font-size: 2.2rem;
+    font-size: 1.7rem;
   }
 
   .imageContainer {
