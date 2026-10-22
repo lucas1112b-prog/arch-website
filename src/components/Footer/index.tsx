@@ -1,8 +1,7 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { TransitionLink } from '../PageTransition';
+import TextReveal from '../TextReveal';
 import teamImg from '../../assets/images/team (2).png';
 import styles from './Footer.module.css';
 
@@ -33,10 +32,10 @@ export default function Footer() {
       <div className={styles.mainGrid}>
         {/* Left Column */}
         <div className={styles.leftCol}>
-          <h2 className={styles.headline}>
+          <TextReveal as="h2" className={styles.headline} wordsOnly>
             CONTE-NOS<br />
             SEU PROJETO.
-          </h2>
+          </TextReveal>
 
           <a href="tel:+554830284440" className={styles.phoneBadge} aria-label="Telefone do estúdio">
             <div className={styles.phoneAvatar}>
@@ -48,19 +47,21 @@ export default function Footer() {
                 className={styles.avatarImg}
               />
             </div>
-            <span className={styles.phoneNumber}>+55 48 3028 4440</span>
+            <TextReveal as="span" className={styles.phoneNumber} wordsOnly>
+              +55 48 3028 4440
+            </TextReveal>
           </a>
         </div>
 
         {/* Right Column */}
         <div className={styles.rightCol}>
-          <div className={styles.bracketTag}>
-            <span>[ ENTRE EM CONTATO ]</span>
-          </div>
+          <TextReveal as="span" className={styles.bracketTag} wordsOnly>
+            [ ENTRE EM CONTATO ]
+          </TextReveal>
 
-          <p className={styles.description}>
+          <TextReveal as="p" className={styles.description} wordsOnly>
             Fique à vontade para entrar em contato e conversar sobre o seu projeto. Vamos torná-lo memorável.
-          </p>
+          </TextReveal>
 
           <div className={styles.actionsRow}>
             <TransitionLink href="/contato" className={styles.actionBtn}>
@@ -127,11 +128,11 @@ export default function Footer() {
       {/* Bottom Metadata Bar */}
       <div className={styles.bottomBar}>
         <div className={styles.metaItem}>
-          <span>25+ ESPECIALISTAS EM ARQ & DIGITAL</span>
+          <TextReveal as="span" wordsOnly>25+ ESPECIALISTAS EM ARQ & DIGITAL</TextReveal>
         </div>
 
         <div className={styles.metaItem}>
-          <span>SEDIADO EM FLORIANÓPOLIS</span>
+          <TextReveal as="span" wordsOnly>SEDIADO EM FLORIANÓPOLIS</TextReveal>
         </div>
 
         <div className={styles.metaItemClock} aria-label="Horário de Brasília">
@@ -142,7 +143,7 @@ export default function Footer() {
         </div>
 
         <div className={styles.socialGroup}>
-          <span className={styles.metaLabel}>SIGA-NOS</span>
+          <TextReveal as="span" className={styles.metaLabel} wordsOnly>SIGA-NOS</TextReveal>
           <a
             href="https://www.instagram.com"
             target="_blank"
