@@ -108,6 +108,7 @@ export default function ScrollGallery() {
         <div className={styles.columnsContainer}>
           {/* Column 1 (Track 1) */}
           <div className={`${styles.column} ${styles.col1}`} ref={col1Ref}>
+            <div className={styles.columnGradient} aria-hidden="true" />
             <div className={styles.card}>
               <Image src={imageOne} alt="ARK7 Projeto 01" fill sizes="(max-width: 768px) 33vw, 16vw" />
             </div>
@@ -115,6 +116,7 @@ export default function ScrollGallery() {
 
           {/* Column 2 (Track 2) */}
           <div className={`${styles.column} ${styles.col2}`} ref={col2Ref}>
+            <div className={styles.columnGradient} aria-hidden="true" />
             <div className={styles.card}>
               <Image src={imageTwo} alt="ARK7 Projeto 02" fill sizes="16vw" />
             </div>
@@ -122,6 +124,7 @@ export default function ScrollGallery() {
 
           {/* Column 3 (Track 3) */}
           <div className={`${styles.column} ${styles.col3}`} ref={col3Ref}>
+            <div className={styles.columnGradient} aria-hidden="true" />
             <div className={styles.card}>
               <Image src={imageThree} alt="ARK7 Projeto 03" fill sizes="16vw" />
             </div>
@@ -129,6 +132,7 @@ export default function ScrollGallery() {
 
           {/* Column 4 (Track 4) */}
           <div className={`${styles.column} ${styles.col4}`} ref={col4Ref}>
+            <div className={styles.columnGradient} aria-hidden="true" />
             <div className={`${styles.card} ${styles.cardWide}`}>
               <Image src={imageFour} alt="ARK7 Projeto 04" fill sizes="16vw" />
             </div>
@@ -136,6 +140,7 @@ export default function ScrollGallery() {
 
           {/* Column 5 (Track 5) */}
           <div className={`${styles.column} ${styles.col5}`} ref={col5Ref}>
+            <div className={styles.columnGradient} aria-hidden="true" />
             <div className={styles.card}>
               <Image src={imageFive} alt="ARK7 Projeto 05" fill sizes="(max-width: 768px) 33vw, 16vw" />
             </div>
@@ -143,6 +148,7 @@ export default function ScrollGallery() {
 
           {/* Column 6 (Track 6) */}
           <div className={`${styles.column} ${styles.col6}`} ref={col6Ref}>
+            <div className={styles.columnGradient} aria-hidden="true" />
             <div className={styles.card}>
               <Image src={imageSeven} alt="ARK7 Projeto 06" fill sizes="(max-width: 768px) 33vw, 16vw" />
             </div>
