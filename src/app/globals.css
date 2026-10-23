@@ -1,4 +1,9 @@
+@import "../styles/breakpoints.css";
+
 :root {
+  --device-width: 1440;
+  --default-font-size: 16;
+
   --color-beige: #D8D4CB;
   --color-white: #ffffff;
   --color-black: #000000;
@@ -11,6 +16,36 @@
   --font-peridot: "peridot-pe-variable", sans-serif;
   --font-neue-haas: var(--font-peridot);
   --font-familjen-grotesk: var(--font-peridot);
+}
+
+@media (--tablet) {
+  :root {
+    --device-width: 1024;
+  }
+}
+
+@media (--mobile) {
+  :root {
+    --device-width: 390;
+  }
+}
+
+html {
+  font-size: var(--document-font-size);
+
+  --document-font-size: calc(
+    100vw /
+    (var(--device-width) / var(--default-font-size))
+  );
+
+  @media (min-width: 1025px) {
+    --document-font-size: vfit(
+      calc(100 / (var(--device-width) / var(--default-font-size))),
+      2.3,
+      calc(var(--default-font-size) * 1px),
+      100px
+    );
+  }
 }
 
 * {

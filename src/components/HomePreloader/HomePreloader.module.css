@@ -14,7 +14,7 @@
 
 .logoMask {
   width: 100%;
-  max-width: 511px;
+  max-width: rem(511);
   aspect-ratio: 511 / 123;
   mask-size: contain;
   mask-repeat: no-repeat;
@@ -54,7 +54,7 @@
   opacity: 0;
 }
 
-@media (max-width: 768px) {
+@media (--mobile) {
   .logoMask {
     max-width: 80%;
   }

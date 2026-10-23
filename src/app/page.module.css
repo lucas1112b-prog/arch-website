@@ -14,13 +14,19 @@
 }
 
 .title {
-  font-size: clamp(3rem, 10vw, 6rem);
+  font-size: rem(72);
   font-weight: 700;
   text-transform: uppercase;
-  margin-bottom: 1rem;
+  margin-bottom: rem(16);
+}
+
+@media (--mobile) {
+  .title {
+    font-size: rem(40);
+  }
 }
 
 .subtitle {
-  font-size: 1.2rem;
+  font-size: rem(19.2);
   opacity: 0.7;
 }

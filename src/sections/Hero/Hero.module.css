@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 32px;
+  padding: rem(32);
   color: var(--color-white);
   z-index: 1;
 }
@@ -74,23 +74,20 @@
 }
 
 .leftHeader {
-  font-size: 2rem;
+  font-size: rem(32);
   font-weight: 500;
   letter-spacing: -0.02em;
   font-family: var(--font-familjen-grotesk);
 }
 
-
-
-
 .centerContent {
   position: absolute;
   top: 50%;
-  left: 40px;
+  left: rem(40);
   transform: translateY(-50%);
   z-index: 10;
   width: 100%;
-  max-width: 511px;
+  max-width: rem(511);
 }
 
 .heroLogo {
@@ -111,13 +108,13 @@
   background-color: #f4f4f45e;
   color: var(--color-white);
   backdrop-filter: blur(30px);
-  width: 130px;
-  height: 130px;
+  width: rem(130);
+  height: rem(130);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: rem(17.6);
   font-family: var(--font-familjen-grotesk);
   /* Chamfered top-right corner */
   clip-path: polygon(0% 0%,
@@ -153,11 +150,10 @@
   z-index: 1;
 }
 
-
 /* Mini Visualizer */
 .miniVisualizer {
   position: relative;
-  width: 200px;
+  width: rem(200);
   aspect-ratio: 16 / 9;
   border: 1px solid rgba(255, 255, 255, 0.618);
   overflow: hidden;
@@ -165,12 +161,11 @@
 
 .bottomLeftIcon {
   position: absolute;
-  bottom: -4px;
+  bottom: rem(-4);
   left: 0;
   z-index: 10;
   pointer-events: none;
 }
-
 
 .smallBgWrapper {
   position: absolute;
@@ -191,9 +186,9 @@
   left: 0;
 }
 
-@media (max-width: 768px) {
+@media (--mobile) {
   .hero {
-    padding: 20px;
+    padding: rem(20);
   }
 
   .header {
@@ -202,7 +197,7 @@
   }
 
   .leftHeader {
-    font-size: 1.4rem;
+    font-size: rem(22.4);
   }
 
   .centerContent {
@@ -219,21 +214,21 @@
   .footer {
     flex-direction: column-reverse;
     align-items: flex-start;
-    gap: 40px;
+    gap: rem(40);
   }
 
   .scroleBtn {
-    width: 90px;
-    height: 90px;
-    font-size: 0.8rem;
+    width: rem(90);
+    height: rem(90);
+    font-size: rem(12.8);
   }
 
   .miniVisualizer {
-    width: 140px;
+    width: rem(140);
   }
 
   .bottomLeftIcon {
-    width: 30px;
-    height: 30px;
+    width: rem(30);
+    height: rem(30);
   }
-}
+}

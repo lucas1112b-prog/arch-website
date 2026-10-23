@@ -55,7 +55,7 @@ type Project = {
 const projects: Project[] = [
   {
     id: 'reserva-da-pedra',
-    title: 'Club Reserva da Pedra',
+    title: 'Reserva das Araucárias',
     image: imgReserva,
     gallery: [imgHero1, imgHero2, imgHero3, imgPre1, imgPre2, imgHero4],
     category: 'Clube Residencial',
@@ -78,7 +78,7 @@ const projects: Project[] = [
   },
   {
     id: 'viva-palmas',
-    title: 'Vivá Palmas do Arvoredo',
+    title: 'Horizonte Palmas',
     image: imgViva,
     gallery: [imgHero3, imgHero4, imgHero2, imgPre3, imgPre4, imgHero1],
     category: 'Residencial Multifamiliar',
@@ -101,7 +101,7 @@ const projects: Project[] = [
   },
   {
     id: 'costa-azul',
-    title: 'Costa Azul Clube',
+    title: 'Mirante da Costa',
     image: imgCosta,
     gallery: [imgHero2, imgHero1, imgHero4, imgPre2, imgPre1, imgHero3],
     category: 'Complexo de Lazer',
@@ -124,7 +124,7 @@ const projects: Project[] = [
   },
   {
     id: 'meridiem',
-    title: 'Meridiem',
+    title: 'Vértice Corporativo',
     image: imgMeridiem,
     gallery: [imgHero4, imgHero3, imgHero1, imgPre4, imgPre3, imgHero2],
     category: 'Edifício Corporativo',
@@ -147,7 +147,7 @@ const projects: Project[] = [
   },
   {
     id: 'mobem',
-    title: 'Mobem Alves de Brito',
+    title: 'Lumina Residence',
     image: imgMobem,
     gallery: [imgHero1, imgHero3, imgHero2, imgPre1, imgPre4, imgHero4],
     category: 'Edifício Residencial',

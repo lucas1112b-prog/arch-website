@@ -1,9 +1,7 @@
 .projectsSection {
-  --project-preview-width: 360px;
-  --project-preview-height: 202.5px;
   background-color: var(--color-dark-grey);
   color: var(--color-white);
-  padding: 120px 40px;
+  padding: rem(120) rem(40);
   position: relative;
   z-index: 2;
 }
@@ -105,8 +103,8 @@
 }
 
 .projectTitle {
-  font-size: clamp(1.85rem, 3.8vw, 3.5rem);
-  font-weight: 600;
+  font-size: rem(48);
+  font-weight: 700;
   font-family: var(--font-familjen-grotesk);
   text-transform: uppercase;
   line-height: 1.1;
@@ -192,7 +190,7 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 360px;
+  width: rem(360);
   aspect-ratio: 16 / 9;
   transform-origin: right bottom;
   pointer-events: none;
@@ -223,8 +221,8 @@
 
 .previewStage {
   position: absolute;
-  top: 24px;
-  right: 40px;
+  top: rem(24);
+  right: rem(40);
   width: var(--project-preview-width);
   height: var(--project-preview-height);
   aspect-ratio: 16 / 9;
@@ -232,7 +230,6 @@
   pointer-events: none;
   z-index: 10;
   will-change: top;
-
 }
 
 .previewStageHidden {
@@ -421,17 +418,17 @@
 
 /* Right Section: "infos" (Refined, understated, minimalist architectural monograph sidebar) */
 .infosColumn {
-  width: clamp(260px, 19vw, 310px);
+  width: rem(290);
   height: 100vh;
   background-color: #0e0e0e;
   color: var(--color-white);
-  padding: clamp(28px, 2.2vw, 40px);
-  padding-bottom: clamp(48px, 3.5vw, 60px);
+  padding: rem(36);
+  padding-bottom: rem(56);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: stretch;
-  gap: 24px;
+  gap: rem(24);
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -491,11 +488,11 @@
 }
 
 .projectTitleModal {
-  font-size: clamp(1.15rem, 1.35vw, 1.5rem);
+  font-size: rem(21);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.01em;
-  margin-bottom: 6px;
+  margin-bottom: rem(6);
   color: var(--color-white);
 }
 
@@ -884,7 +881,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (--mobile) {
   .previewStage {
     display: none;
   }
@@ -990,7 +987,7 @@
   .mobileTitleText {
     margin: 0;
     font-family: var(--font-neue-haas);
-    font-size: clamp(1.25rem, 5.2vw, 1.6rem);
+    font-size: rem(22);
     font-weight: 500;
     line-height: 1.15;
     color: var(--color-white);

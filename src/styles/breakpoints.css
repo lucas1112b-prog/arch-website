@@ -1,0 +1,5 @@
+@custom-media --hover (hover: hover);
+@custom-media --mobile (width <= 768px);
+@custom-media --tablet (width <= 1024px);
+@custom-media --desktop (width > 1024px);
+@custom-media --reduced-motion (prefers-reduced-motion: reduce);

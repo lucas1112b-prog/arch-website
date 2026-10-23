@@ -311,16 +311,15 @@
   opacity: 0;
 }
 
-@media (max-width: 768px) {
-
+@media (--mobile) {
   .socialMarquee {
-    top: 20px;
-    left: 20px;
-    width: 190px;
-    height: 28px;
+    top: rem(20);
+    left: rem(20);
+    width: rem(190);
+    height: rem(28);
   }
   .menuContainer {
-    top: 20px;
-    right: 20px;
+    top: rem(20);
+    right: rem(20);
   }
 }
