@@ -57,7 +57,7 @@ export default function Team() {
       <div className={styles.imageContainer}>
         <Image
           src={teamImg}
-          alt="ARK7 Team"
+          alt="ARCH.9 Team"
           className={styles.teamImage}
           placeholder="blur"
         />

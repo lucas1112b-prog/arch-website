@@ -128,13 +128,13 @@ export default function Hero() {
 
       {/* Main Title / Logo */}
       <div className={styles.centerContent}>
-        <img src={logo.src} alt="ARK.7 Logo" className={styles.heroLogo} />
+        <img src={logo.src} alt="ARCH.9 Logo" className={styles.heroLogo} />
       </div>
 
       {/* Footer / Controls */}
       <footer className={styles.footer}>
         <div className={styles.scroleBtn}>
-          ARK.7
+          ARCH.9
         </div>
 
         <div className={styles.miniVisualizer}>

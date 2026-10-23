@@ -135,8 +135,8 @@ export default function Manifesto() {
               <TransitionLink href="/contato" className={styles.cta}>
                 <span className={styles.ctaLabelMask}>
                   <span className={styles.ctaLabelTrack}>
-                    <span className={styles.ctaLabel}>Fale com a ARK7</span>
-                    <span className={styles.ctaLabel} aria-hidden="true">Fale com a ARK7</span>
+                    <span className={styles.ctaLabel}>Fale com a ARCH.9</span>
+                    <span className={styles.ctaLabel} aria-hidden="true">Fale com a ARCH.9</span>
                   </span>
                 </span>
                 <span className={styles.ctaArrowBox} aria-hidden="true">

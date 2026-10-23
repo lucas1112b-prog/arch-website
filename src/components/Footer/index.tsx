@@ -41,7 +41,7 @@ export default function Footer() {
             <div className={styles.phoneAvatar}>
               <Image
                 src={teamImg}
-                alt="ARK7 Team"
+                alt="ARCH.9 Team"
                 width={34}
                 height={34}
                 className={styles.avatarImg}
