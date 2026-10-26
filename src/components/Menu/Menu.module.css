@@ -106,8 +106,7 @@
   justify-content: flex-end;
 }
 
-.menuBtn,
-.langBtn {
+.menuBtn {
   border: none;
   font-size: 0.78rem;
   font-weight: 600;
@@ -115,9 +114,6 @@
   border-radius: 2px;
   transition: opacity 0.3s ease;
   font-family: var(--font-familjen-grotesk);
-}
-
-.menuBtn {
   background-color: #ffffffff;
   color: var(--color-black);
   letter-spacing: 0.08em;
@@ -134,63 +130,7 @@
   overflow: hidden;
 }
 
-
-
-.langBtn {
-  background-color: transparent;
-  color: var(--color-black);
-  padding: 8px 11px;
-  width: 100%;
-}
-
-.langSelector {
-  background-color: #f7ce02;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  height: 31px;
-  width: 42px;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  clip-path: polygon(80.22% 0%,
-      100% 25.85%,
-      100% 100%,
-      19.15% 100%,
-      0% 74.15%,
-      0% 0%);
-}
-
-.langSelector:hover {
-  height: 90px;
-  clip-path: none;
-}
-
-.langOptions {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 10px;
-}
-
-.langOption {
-  background: transparent;
-  border: none;
-  color: var(--color-black);
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 6px 12px;
-  cursor: pointer;
-  text-align: center;
-  font-family: var(--font-familjen-grotesk);
-  transition: opacity 0.2s ease;
-}
-
-.langOption:hover {
-  opacity: 0.6;
-}
-
-
-.menuBtn:hover,
-.langBtn:hover {
+.menuBtn:hover {
   opacity: 0.8;
 }
 
@@ -316,10 +256,38 @@
     top: rem(20);
     left: rem(20);
     width: rem(190);
-    height: rem(28);
+    height: rem(32);
+    box-sizing: border-box;
   }
+
+  .socialMarqueeContent {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+  }
+
   .menuContainer {
     top: rem(20);
     right: rem(20);
+  }
+
+  .rightControls {
+    display: flex;
+    align-items: center;
+  }
+
+  .menuBtn {
+    height: rem(32);
+    padding: 0 rem(16);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    line-height: 1;
+  }
+
+  .dropdown {
+    top: calc(100% + rem(8));
   }
 }

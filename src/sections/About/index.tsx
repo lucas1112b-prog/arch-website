@@ -344,6 +344,81 @@ export default function About() {
       };
     });
 
+    mm.add('(max-width: 768px)', () => {
+      const slides = slideRefs.current.filter((slide): slide is HTMLElement => Boolean(slide));
+      const mobileSplits: SplitType[] = [];
+
+      slides.forEach((slide, index) => {
+        if (index > 0) {
+          const title = slide.querySelector<HTMLElement>(`.${styles.title}`);
+          const description = slide.querySelector<HTMLElement>(`.${styles.description}`);
+          const counter = slide.querySelector<HTMLElement>(`.${styles.counter}`);
+          const divider = slide.querySelector<HTMLElement>(`.${styles.divider}`);
+
+          if (counter) {
+            gsap.set(counter, { y: 20, opacity: 0, filter: 'blur(10px)' });
+          }
+
+          let splitTitle: SplitType | null = null;
+          if (title) {
+            splitTitle = new SplitType(title, { types: 'words' });
+            gsap.set(splitTitle.words, { y: 20, opacity: 0, filter: 'blur(10px)' });
+            mobileSplits.push(splitTitle);
+          }
+
+          let splitDesc: SplitType | null = null;
+          if (description) {
+            splitDesc = new SplitType(description, { types: 'words' });
+            gsap.set(splitDesc.words, { y: 20, opacity: 0, filter: 'blur(10px)' });
+            mobileSplits.push(splitDesc);
+          }
+
+          if (divider) {
+            gsap.set(divider, { y: 20, opacity: 0, filter: 'blur(10px)' });
+          }
+
+          ScrollTrigger.create({
+            trigger: slide,
+            start: 'top 80%',
+            once: true,
+            onEnter: () => {
+              const tl = gsap.timeline();
+              if (counter) {
+                tl.to(counter, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' }, 0);
+              }
+              if (splitTitle?.words) {
+                tl.to(splitTitle.words, {
+                  y: 0,
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  duration: 0.45,
+                  stagger: 0.03,
+                  ease: 'power2.out',
+                }, 0.05);
+              }
+              if (splitDesc?.words) {
+                tl.to(splitDesc.words, {
+                  y: 0,
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  duration: 0.45,
+                  stagger: 0.02,
+                  ease: 'power2.out',
+                }, 0.1);
+              }
+              if (divider) {
+                tl.to(divider, { y: 0, opacity: 1, filter: 'blur(0px)', duration: 0.6, ease: 'power2.out' }, 0.15);
+              }
+            },
+          });
+        }
+      });
+
+      return () => {
+        mobileSplits.forEach((s) => s.revert());
+      };
+    });
+
     return () => {
       firstDividerObserver?.disconnect();
       mm.revert();

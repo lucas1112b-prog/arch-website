@@ -97,14 +97,6 @@ useEffect(() => {
           <button className={styles.menuBtn} onClick={toggleMenu}>
             {isOpen ? 'FECHAR' : 'MENU'}
           </button>
-          
-          <div className={styles.langSelector}>
-            <button className={styles.langBtn}>PT</button>
-            <div className={styles.langOptions}>
-              <button className={styles.langOption}>EN</button>
-              <button className={styles.langOption}>ES</button>
-            </div>
-          </div>
         </div>
 
         <div className={styles.dropdown} ref={dropdownRef}>

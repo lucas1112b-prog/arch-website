@@ -10,6 +10,7 @@ import SplitType from 'split-type';
 import Lenis from 'lenis';
 import { useLenis } from 'lenis/react';
 import styles from './Projects.module.css';
+import TextReveal from '../../components/TextReveal';
 
 // Project Images
 import imgReserva from '../../assets/images/projects-section/reserva-da-pedra.png';
@@ -646,6 +647,30 @@ export default function Projects() {
       modalDetailsRef.current.style.pointerEvents = 'auto';
     }
 
+    const splits: SplitType[] = [];
+
+    if (modalDetailsRef.current) {
+      gsap.set(modalDetailsRef.current, { autoAlpha: 0 });
+
+      const selectors = [
+        `.${styles.infosCategory}`,
+        `.${styles.infosCounter}`,
+        `.${styles.projectTitleModal}`,
+        `.${styles.metaRow} span:not(.${styles.dot})`,
+        `.${styles.accordionTitle}`,
+        `.${styles.accordionText}`,
+        `.${styles.accordionListItem}`,
+      ];
+
+      const textEls = modalDetailsRef.current.querySelectorAll<HTMLElement>(selectors.join(', '));
+      textEls.forEach((el) => {
+        const s = new SplitType(el, { types: 'lines,words' });
+        gsap.set(s.lines, { overflow: 'hidden' });
+        gsap.set(s.words, { yPercent: 115 });
+        splits.push(s);
+      });
+    }
+
     const tl = gsap.timeline({
       onComplete: () => {
         isAnimatingRef.current = false;
@@ -680,12 +705,46 @@ export default function Projects() {
     }
 
     if (modalDetailsRef.current) {
-      tl.fromTo(
+      tl.to(
         modalDetailsRef.current,
-        { autoAlpha: 0 },
-        { autoAlpha: 1, duration: 0.3, ease: 'power2.out' },
+        {
+          autoAlpha: 1,
+          duration: 0.28,
+          ease: 'power2.out',
+          onStart: () => {
+            if (modalDetailsRef.current) {
+              modalDetailsRef.current.style.pointerEvents = 'auto';
+            }
+          },
+        },
         0.1
       );
+
+      const allWords = splits.flatMap((s) => s.words || []);
+      if (allWords.length > 0) {
+        tl.to(
+          allWords,
+          {
+            yPercent: 0,
+            duration: 0.45,
+            stagger: 0.008,
+            ease: 'power3.out',
+          },
+          '<'
+        );
+      }
+
+      const nonTextEls = modalDetailsRef.current.querySelectorAll<HTMLElement>(
+        `.${styles.dot}, .${styles.accordionIcon}, .${styles.accordionItem}, .${styles.nextProjectCard}`
+      );
+      if (nonTextEls.length > 0) {
+        tl.fromTo(
+          nonTextEls,
+          { autoAlpha: 0 },
+          { autoAlpha: 1, duration: 0.3, ease: 'power2.out', stagger: 0.03 },
+          '<0.05'
+        );
+      }
     }
 
     if (marqueeRef.current) {
@@ -696,6 +755,10 @@ export default function Projects() {
         0.1
       );
     }
+
+    return () => {
+      splits.forEach((s) => s.revert());
+    };
   }, [activeProjectId]);
 
   const selectProject = (projectId: string) => {
@@ -1014,7 +1077,9 @@ export default function Projects() {
                 <div className={styles.mobileInfo}>
                   <span className={styles.mobileCategory}>{project.category}</span>
                   <div className={styles.mobileTitleRow}>
-                    <h3 className={styles.mobileTitleText}>{project.title}</h3>
+                    <TextReveal as="h3" className={styles.mobileTitleText} wordsOnly>
+                      {project.title}
+                    </TextReveal>
                     <span className={styles.mobileArrow} aria-hidden="true">→</span>
                   </div>
                 </div>

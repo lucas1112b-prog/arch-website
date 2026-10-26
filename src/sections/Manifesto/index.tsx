@@ -14,6 +14,8 @@ export default function Manifesto() {
   const textRef = useRef<HTMLParagraphElement>(null);
   const dividerLineRef = useRef<HTMLDivElement>(null);
   const crosshairRef = useRef<HTMLSpanElement>(null);
+  const supportingTextRef = useRef<HTMLParagraphElement>(null);
+  const missionTextRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
     const element = textRef.current;
@@ -78,6 +80,39 @@ export default function Manifesto() {
         )
       : null;
 
+    const mm = gsap.matchMedia();
+
+    mm.add('(max-width: 768px)', () => {
+      const mobileSplits: SplitType[] = [];
+
+      [supportingTextRef.current, missionTextRef.current].forEach((el) => {
+        if (!el) return;
+        const s = new SplitType(el, { types: 'words' });
+        gsap.set(s.words, { y: 20, opacity: 0, filter: 'blur(10px)' });
+        mobileSplits.push(s);
+
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 85%',
+          once: true,
+          onEnter: () => {
+            gsap.to(s.words, {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              duration: 0.45,
+              stagger: 0.02,
+              ease: 'power2.out',
+            });
+          },
+        });
+      });
+
+      return () => {
+        mobileSplits.forEach((s) => s.revert());
+      };
+    });
+
     return () => {
       textTween?.scrollTrigger?.kill();
       textTween?.kill();
@@ -86,6 +121,7 @@ export default function Manifesto() {
       crosshairTween?.scrollTrigger?.kill();
       crosshairTween?.kill();
       split?.revert();
+      mm.revert();
     };
   }, []);
 
@@ -121,7 +157,7 @@ export default function Manifesto() {
 
           <div className={styles.bottomRow}>
             <div className={styles.bottomLeftCol}>
-              <p className={styles.supportingText}>
+              <p ref={supportingTextRef} className={styles.supportingText}>
                 PROJETAMOS PARA A LONGEVIDADE<br />
                 CLAREZA PRIMEIRO, EXECUÇÃO SEMPRE,<br />
                 ESCALÁVEL.
@@ -129,7 +165,7 @@ export default function Manifesto() {
             </div>
 
             <div className={styles.bottomRightCol}>
-              <p className={styles.missionText}>
+              <p ref={missionTextRef} className={styles.missionText}>
                 Entre a matéria e o tempo, criamos espaços que permanecem — vivos, precisos e feitos para durar.
               </p>
               <a

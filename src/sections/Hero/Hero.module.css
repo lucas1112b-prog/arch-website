@@ -194,10 +194,16 @@
   .header {
     flex-direction: row;
     align-items: center;
+    height: rem(32);
   }
 
   .leftHeader {
-    font-size: rem(22.4);
+    font-size: rem(20);
+    height: rem(32);
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    margin: 0;
   }
 
   .centerContent {

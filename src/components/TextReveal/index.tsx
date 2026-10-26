@@ -53,12 +53,16 @@ export default function TextReveal({
       if (hasAnimated) animate();
     });
 
+    const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+    const threshold = isMobile ? 0.15 : 0.4;
+    const rootMargin = isMobile ? '0px 0px -30px 0px' : '0px';
+
     const observer = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting && !hasAnimated) {
         hasAnimated = true;
         animate();
       }
-    }, { threshold: 0.4 });
+    }, { threshold, rootMargin });
 
     observer.observe(textRef.current);
 
