@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import styles from './Menu.module.css';
 import { TransitionLink } from '../PageTransition';
+import { WHATSAPP_URL } from '../../constants/contact';
 
 
 export default function Menu() {
@@ -111,7 +112,7 @@ useEffect(() => {
             <TransitionLink href="/" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>Home</TransitionLink>
             <TransitionLink href="#" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>Projetos</TransitionLink>
             <TransitionLink href="#" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>Sobre Nós</TransitionLink>
-            <TransitionLink href="/contato" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>Contato</TransitionLink>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className={styles.dropdownItem} onClick={() => setIsOpen(false)}>Contato</a>
           </div>
           <div className={styles.marqueeContainer}>
             <div className={styles.marqueeContent}>

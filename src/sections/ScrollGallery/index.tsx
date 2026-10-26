@@ -5,7 +5,7 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './ScrollGallery.module.css';
-import { TransitionLink } from '../../components/PageTransition';
+import { WHATSAPP_URL } from '../../constants/contact';
 import TextReveal from '../../components/TextReveal';
 
 import imageOne from '../../assets/images/images-big-hero/image-hero-04-big.png';
@@ -195,7 +195,12 @@ export default function ScrollGallery() {
             <TextReveal as="h2" className={styles.title} wordsOnly>
               Vamos fazer<br />acontecer.
             </TextReveal>
-            <TransitionLink href="/contato" className={styles.cta}>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.cta}
+            >
               <span className={styles.ctaLabelMask}>
                 <span className={styles.ctaLabelTrack}>
                   <span className={styles.ctaLabel}>FAZER ACONTECER</span>
@@ -218,7 +223,7 @@ export default function ScrollGallery() {
                   />
                 </svg>
               </span>
-            </TransitionLink>
+            </a>
           </div>
         </div>
       </div>

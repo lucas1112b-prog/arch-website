@@ -82,7 +82,16 @@ export function TransitionLink({ href, children, className, onClick }: { href: s
 
   const handleClick = (e: React.MouseEvent) => {
     if (onClick) onClick();
-    if (href.startsWith('#') || href === '') return;
+    if (
+      href.startsWith('#') ||
+      href === '' ||
+      href.startsWith('http://') ||
+      href.startsWith('https://') ||
+      href.startsWith('tel:') ||
+      href.startsWith('mailto:')
+    ) {
+      return;
+    }
     e.preventDefault();
     navigate(href);
   };

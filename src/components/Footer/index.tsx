@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { TransitionLink } from '../PageTransition';
+import { WHATSAPP_URL } from '../../constants/contact';
 import TextReveal from '../TextReveal';
 import teamImg from '../../assets/images/team (2).png';
 import styles from './Footer.module.css';
@@ -64,7 +64,12 @@ export default function Footer() {
           </TextReveal>
 
           <div className={styles.actionsRow}>
-            <TransitionLink href="/contato" className={styles.actionBtn}>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.actionBtn}
+            >
               <span className={styles.ctaLabelMask}>
                 <span className={styles.ctaLabelTrack}>
                   <span className={styles.ctaLabel}>INICIAR PROJETO</span>
@@ -87,10 +92,10 @@ export default function Footer() {
                   />
                 </svg>
               </span>
-            </TransitionLink>
+            </a>
 
             <a
-              href="https://wa.me/5548991247700?text=Ol%C3%A1%2C%20gostaria%20de%20conversar%20sobre%20um%20projeto."
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.actionBtn}

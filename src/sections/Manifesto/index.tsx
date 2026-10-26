@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
-import { TransitionLink } from '../../components/PageTransition';
+import { WHATSAPP_URL } from '../../constants/contact';
 import TextReveal from '../../components/TextReveal';
 import styles from './Manifesto.module.css';
 
@@ -132,7 +132,12 @@ export default function Manifesto() {
               <p className={styles.missionText}>
                 Entre a matéria e o tempo, criamos espaços que permanecem — vivos, precisos e feitos para durar.
               </p>
-              <TransitionLink href="/contato" className={styles.cta}>
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.cta}
+              >
                 <span className={styles.ctaLabelMask}>
                   <span className={styles.ctaLabelTrack}>
                     <span className={styles.ctaLabel}>Fale com a ARCH.9</span>
@@ -155,7 +160,7 @@ export default function Manifesto() {
                     />
                   </svg>
                 </span>
-              </TransitionLink>
+              </a>
             </div>
           </div>
         </div>
